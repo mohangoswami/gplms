@@ -1,5 +1,6 @@
 @extends('layouts.index-master')
 
+
 @section('content')
 
 <!-- Log In page -->
