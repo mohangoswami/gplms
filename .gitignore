@@ -10,3 +10,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Android keystore files — never commit
+android.keystore
+*.keystore
+*.jks
