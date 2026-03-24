@@ -427,6 +427,16 @@ Route::prefix('admin')->group(function(){
     )->middleware('auth:admin')
     ->name('admin.results.reopen');
 
+    Route::post('/results/class/{class}/finalize-all',
+        [MarksEntryController::class, 'finalizeAll']
+    )->middleware('auth:admin')
+    ->name('admin.results.finalizeAll');
+
+    Route::post('/results/class/{class}/reopen-all',
+        [MarksEntryController::class, 'reopenAll']
+    )->middleware('auth:admin')
+    ->name('admin.results.reopenAll');
+
 
 
     // ===============================

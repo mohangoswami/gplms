@@ -129,6 +129,11 @@ class ResultCalculationService
         }
 
         /* =====================================================
+           GK/MS MERGE (GK + MS → single 100-mark subject)
+        ===================================================== */
+        $result = $this->mergeGKMSSubjects($result);
+
+        /* =====================================================
            GRAND OVERALL
         ===================================================== */
         $result['overall'] = $this->calculateGrandOverall($result['terms']);
@@ -261,6 +266,110 @@ class ResultCalculationService
                 : null,
             'result'      => $finalResult,
         ];
+    }
+
+    /* =====================================================
+        GK/MS MERGE
+        GK and MS together form ONE 100-mark subject per term.
+        Max = max(GK.max, MS.max) — takes one subject's worth,
+        NOT the sum, so 172.5 / 200 = 86.25% (not 43.13%).
+    ===================================================== */
+    protected function mergeGKMSSubjects(array $result): array
+    {
+        $firstTermId = $this->terms->get(0)?->id;
+        if (!$firstTermId || empty($result['terms'][$firstTermId]['subjects'])) {
+            return $result;
+        }
+
+        // Locate GK and MS by subject name in the first term
+        $gkKey = null;
+        $msKey = null;
+        foreach ($result['terms'][$firstTermId]['subjects'] as $sid => $s) {
+            $name = strtoupper(trim($s['subject'] ?? ''));
+            if ($name === 'GK') $gkKey = $sid;
+            if ($name === 'MS') $msKey = $sid;
+        }
+
+        if ($gkKey === null || $msKey === null) {
+            return $result; // No GK/MS found – nothing to merge
+        }
+
+        foreach ($this->terms as $term) {
+            $tid = $term->id;
+            if (!isset($result['terms'][$tid]['subjects'])) {
+                continue;
+            }
+
+            $subjects = &$result['terms'][$tid]['subjects'];
+            $gk = $subjects[$gkKey] ?? null;
+            $ms = $subjects[$msKey] ?? null;
+
+            // Always remove originals from this term
+            unset($subjects[$gkKey], $subjects[$msKey]);
+
+            // Merge components from whichever entries exist
+            $mc = [];
+            foreach (($gk['components'] ?? []) as $c) {
+                $mc[$c['component_name']] = $c;
+            }
+            foreach (($ms['components'] ?? []) as $c) {
+                $n = $c['component_name'];
+                if (isset($mc[$n])) {
+                    $mc[$n]['obtained'] = (is_numeric($mc[$n]['obtained']) ? (float)$mc[$n]['obtained'] : 0)
+                                        + (is_numeric($c['obtained'])     ? (float)$c['obtained']     : 0);
+                    $mc[$n]['max'] += $c['max'];
+                } else {
+                    $mc[$n] = $c;
+                }
+            }
+
+            // Recalculate obtained by summing merged components (skips AB marks)
+            $ob = 0;
+            foreach ($mc as $c) {
+                if (is_numeric($c['obtained'])) {
+                    $ob += (float)$c['obtained'];
+                }
+            }
+
+            // ── KEY FIX ────────────────────────────────────────────────────
+            // GK and MS are two halves of ONE 100-mark subject.
+            // Use one subject's max (not the sum) so percentage is correct:
+            //   172.5 / 100 * 100 = 86.25%   (correct)
+            //   172.5 / 200 * 100 = 43.13%   (wrong – old behaviour)
+            // ─────────────────────────────────────────────────────────────
+            $mx = max(($gk['max'] ?? 0), ($ms['max'] ?? 0));
+            $pc = $mx > 0 ? round($ob / $mx * 100, 2) : 0;
+
+            $subjects['gkms'] = [
+                'subject'    => 'GK/MS',
+                'components' => array_values($mc),
+                'obtained'   => $ob,
+                'max'        => $mx,
+                'percent'    => $pc,
+                'grade'      => self::gradeFromPercentage($pc),
+                'status'     => 'OK',
+                'pass'       => $pc >= 33,
+            ];
+
+            // Recompute term totals now that GK+MS are replaced by gkms
+            $newTotal = 0;
+            $newMax   = 0;
+            foreach ($subjects as $s) {
+                if (is_numeric($s['obtained'])) {
+                    $newTotal += (float)$s['obtained'];
+                }
+                $newMax += $s['max'];
+            }
+            $result['terms'][$tid]['term_total'] = $newTotal;
+            $result['terms'][$tid]['term_max']   = $newMax;
+            $result['terms'][$tid]['percentage'] = $newMax > 0
+                ? round($newTotal / $newMax * 100, 2)
+                : null;
+
+            unset($subjects); // release reference
+        }
+
+        return $result;
     }
 
     /* =====================================================

@@ -99,10 +99,34 @@ body {
         <span>Students of Class {{ $class }}</span>
 
         @auth('admin')
-        <a href="{{ route('admin.results.class.bulk.pdf', $class) }}"
-           class="btn btn-success btn-sm">
-            Download All Report Cards
-        </a>
+        <div class="d-flex gap-2">
+
+            {{-- Finalize All --}}
+            <form method="POST"
+                  action="{{ route('admin.results.finalizeAll', $class) }}"
+                  onsubmit="return confirm('Finalize ALL students of Class {{ $class }}? Students with missing marks will be skipped.')">
+                @csrf
+                <button type="submit" class="btn btn-warning btn-sm">
+                    🔒 Finalize All
+                </button>
+            </form>
+
+            {{-- Reopen All --}}
+            <form method="POST"
+                  action="{{ route('admin.results.reopenAll', $class) }}"
+                  onsubmit="return confirm('Reopen ALL finalized results of Class {{ $class }}? This will allow re-editing.')">
+                @csrf
+                <button type="submit" class="btn btn-secondary btn-sm">
+                    🔓 Reopen All
+                </button>
+            </form>
+
+            <a href="{{ route('admin.results.class.bulk.pdf', $class) }}"
+               class="btn btn-success btn-sm">
+                Download All Report Cards
+            </a>
+
+        </div>
         @endauth
     </div>
 

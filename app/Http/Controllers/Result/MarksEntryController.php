@@ -662,6 +662,93 @@ protected function getNextStudent(User $student)
     }
 
 
+    public function finalizeAll(string $class)
+    {
+        abort_unless(auth('admin')->check(), 403);
+
+        $performa = ResultPerforma::where('class', $class)
+            ->where('is_default', 1)
+            ->firstOrFail();
+
+        $students = User::where('grade', $class)->get();
+
+        $finalized = 0;
+        $skipped   = 0;
+
+        foreach ($students as $student) {
+            // Skip already finalized
+            $alreadyDone = ResultFinalization::where([
+                'student_id'  => $student->id,
+                'performa_id' => $performa->id,
+                'status'      => 'FINAL',
+            ])->exists();
+
+            if ($alreadyDone) {
+                $finalized++;
+                continue;
+            }
+
+            // Same logic as individual Finalize button:
+            // skip if 0 entries OR any entry with marks=null AND grade=null
+            $totalEntries = StudentExamEntry::where('student_id', $student->id)->count();
+            $blankTrue    = StudentExamEntry::where('student_id', $student->id)
+                ->whereNull('marks')
+                ->whereNull('grade')
+                ->exists();
+
+            if (($totalEntries === 0) || $blankTrue) {
+                $skipped++;
+                continue;
+            }
+
+            ResultFinalization::updateOrCreate(
+                [
+                    'student_id'  => $student->id,
+                    'performa_id' => $performa->id,
+                ],
+                [
+                    'status'            => 'FINAL',
+                    'finalized_by_id'   => auth('admin')->id(),
+                    'finalized_by_role' => 'admin',
+                    'finalized_at'      => now(),
+                ]
+            );
+
+            $finalized++;
+        }
+
+        $msg = "Finalized {$finalized} student(s).";
+        if ($skipped > 0) {
+            $msg .= " Skipped {$skipped} student(s) with missing marks.";
+        }
+
+        return redirect()
+            ->route('admin.results.studentList', ['class' => $class])
+            ->with('status', $msg);
+    }
+
+
+    public function reopenAll(string $class)
+    {
+        abort_unless(auth('admin')->check(), 403);
+
+        $performa = ResultPerforma::where('class', $class)
+            ->where('is_default', 1)
+            ->firstOrFail();
+
+        $studentIds = User::where('grade', $class)->pluck('id');
+
+        $deleted = ResultFinalization::whereIn('student_id', $studentIds)
+            ->where('performa_id', $performa->id)
+            ->where('status', 'FINAL')
+            ->delete();
+
+        return redirect()
+            ->route('admin.results.studentList', ['class' => $class])
+            ->with('status', "Reopened {$deleted} student result(s) for editing.");
+    }
+
+
         //Result pass fail final preparation
 public function calculateResult(User $student, Request $request)
 {

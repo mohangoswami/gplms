@@ -49,6 +49,7 @@ public function studentList(Request $request)
 
     $students = collect();
     $statusMap = collect();
+    $finalizedMap = collect();
 
     if ($class) {
 
