@@ -23,64 +23,8 @@
                               @endcomponent
 
                         </div><!--end col-->
-                    </div>
-                    <!-- end page title end breadcrumb -->
-                    <div class="row">  
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ URL::asset('assets/images/widgets/calendar.svg') }}" alt="" class="img-fluid">
-
-                                    <ul class="list-group">
-                                        <li class="list-group-item align-items-center d-flex">
-                                            <div class="media">
-                                                <img src="{{ URL::asset('assets/images/widgets/project1.jpg') }}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                <div class="media-body align-self-center"> 
-                                                    <h5 class="mt-0 mb-1">Meeting with UI/UX Designers</h5>
-                                                    <p class="text-muted mb-0">Today 07:30 AM</p>                                                                                             
-                                                </div><!--end media body-->
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item align-items-center ">
-                                            <div class="media">
-                                                <img src="{{ URL::asset('assets/images/users/user-5.jpg')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                <div class="media-body align-self-center"> 
-                                                    <h5 class="mt-0 mb-1">Lunch with my friend</h5>
-                                                    <p class="text-muted mb-0">Today 12:30 PM</p>                                                                                            
-                                                </div><!--end media body-->
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item align-items-center">
-                                            <div class="media">
-                                                <img src="{{ URL::asset('assets/images/widgets/project3.jpg')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                <div class="media-body align-self-center"> 
-                                                    <h5 class="mt-0 mb-1">Call for payment Project ID : #254136</h5>
-                                                    <p class="text-muted mb-0">Tomorrow 10:30 AM</p>                                                                                           
-                                                </div><!--end media body-->
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item align-items-center ">
-                                            <div class="media">
-                                                <img src="{{ URL::asset('assets/images/users/user-4.jpg')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                <div class="media-body align-self-center"> 
-                                                    <h5 class="mt-0 mb-1">Picnic with my Family</h5>
-                                                    <p class="text-muted mb-0">01 June 2019 - 09:30 AM</p>                                                                                           
-                                                </div><!--end media body-->
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item align-items-center">
-                                            <div class="media">
-                                                <img src="{{ URL::asset('assets/images/widgets/project4.jpg')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                <div class="media-body align-self-center"> 
-                                                    <h5 class="mt-0 mb-1">Meeting with Developers</h5>
-                                                    <p class="text-muted mb-0">04 June 2019 - 07:30 AM</p>
-                                                </div><!--end media body-->
-                                            </div>
-                                        </li>
-                                    </ul> 
-                                </div><!--end card-body-->
-                            </div><!--end card-->
-                        </div><!--end col-->                      
+  
+                                      
                         <div class="col-lg-8">
                             <div class="card">
                                 <div class="card-body">
@@ -101,5 +45,25 @@
         <script src="{{ URL::asset('plugins/fullcalendar/packages/timegrid/main.js') }}"></script>
         <script src="{{ URL::asset('plugins/fullcalendar/packages/interaction/main.js') }}"></script>
         <script src="{{ URL::asset('plugins/fullcalendar/packages/list/main.js') }}"></script>
-        <script src="{{ URL::asset('assets/pages/jquery.calendar.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var holidays = <?php echo json_encode($events); ?>;
+    console.log(holidays);
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [  'dayGrid' ],
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      events: holidays,
+      overlap: false
+
+    });
+
+    calendar.render();
+  });
+</script>
 @stop

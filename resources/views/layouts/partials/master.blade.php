@@ -11,7 +11,7 @@
 
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
-        
+
         @yield('headerStyle')
 
           <!-- App css -->
@@ -22,8 +22,12 @@
         <link href="{{ URL::asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <x-leftbar />
-  <x-topbar />
+         <!-- leftbar -->
+         @include('layouts/partials/sidebar/analytics-leftbar')
+
+         <!-- toptbar -->
+        @include('layouts/partials/topbar')
+
 
         <div class="page-wrapper">
 
@@ -32,8 +36,6 @@
                  @yield('content')
             </div>
 
-            <x-extra-modal />
-            <x-footer />
 
         </div>
         <!-- jQuery  -->
@@ -44,8 +46,8 @@
         <script src="{{ URL::asset('assets/js/waves.js') }}"></script>
         <script src="{{ URL::asset('assets/js/feather.min.js') }}"></script>
         <script src="{{ URL::asset('assets/js/jquery.slimscroll.min.js') }}"></script>
-        <script src="{{ URL::asset('plugins/apexcharts/apexcharts.min.js') }}"></script> 
-      
+        <script src="{{ URL::asset('plugins/apexcharts/apexcharts.min.js') }}"></script>
+
        @yield('footerJs')
 
         <!-- App js -->

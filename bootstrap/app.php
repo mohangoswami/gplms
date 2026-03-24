@@ -11,6 +11,16 @@
 |
 */
 
+// Ensure writable runtime cache directories exist on Lambda.
+if (! is_dir('/tmp/bootstrap/cache')) {
+    @mkdir('/tmp/bootstrap/cache', 0775, true);
+}
+$tmpBootstrap = '/tmp/bootstrap';
+if (is_dir($tmpBootstrap)) {
+    @chmod($tmpBootstrap, 0775);
+    @chmod('/tmp/bootstrap/cache', 0775);
+}
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );

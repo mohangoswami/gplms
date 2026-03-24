@@ -7,21 +7,10 @@
 
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round mt-3 ">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger b-round  mt-3 ">
-    {{ session('failed') }}
-</div>
-@endif
-@if (session('delete'))
-<div class="alert alert-warning b-round  mt-3">
-    {{ session('delete') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
 <div class="row m-3">
     <div class="col-lg-12">
         <div class="card">
@@ -51,9 +40,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        
+
                         @foreach ($subCodes as $subCode)
-                      
+
                         <tr>
                             <td>{{$subCode->class}}</td>
                             <td>{{$subCode->subject}}</td>
@@ -69,7 +58,7 @@
                             <td><a href="{{$subCode->link_url}}"> {{$subCode->link_url}}</a></td>
                             <td>
                             <a href="editLiveClass/{{$subCode->id}}"><i class="fas fa-edit text-info font-16"></i></a>
-                              
+
                             </td>
                         </tr>
                         @endforeach
@@ -82,13 +71,13 @@
     </div> <!-- end col -->
 </div>
 
-@endsection  
+@endsection
 
 
 @section('footerScript')
 
 <script src="{{ URL::asset('plugins/footable/js/footable.js')}}"></script>
-        <script src="{{ URL::asset('plugins/moment/moment.js')}}"></script> 
-        <script src="{{ URL::asset('assets/pages/jquery.footable.init.js')}}"></script> 
-        
+        <script src="{{ URL::asset('plugins/moment/moment.js')}}"></script>
+        <script src="{{ URL::asset('assets/pages/jquery.footable.init.js')}}"></script>
+
 @stop

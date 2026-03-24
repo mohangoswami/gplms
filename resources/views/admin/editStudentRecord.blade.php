@@ -1,104 +1,157 @@
 @extends('layouts.admin_analytics-master')
 
 @section('headerStyle')
-<link href="{{ URL::asset('plugins/footable/css/footable.bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{ URL::asset('plugins/footable/css/footable.bootstrap.css') }}" rel="stylesheet" type="text/css">
 @stop
 
-
-
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round mt-3 ">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger b-round  mt-3 ">
-    {{ session('failed') }}
-</div>
-@endif
-@if (session('delete'))
-<div class="alert alert-warning b-round  mt-3">
-    {{ session('delete') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
 <div class="row">
-    <div class="col-lg-6">
-        <div class="card m-5">
-            <div class="card-body">
-                <h3>Edit Live Class</h3>
-                @foreach ($users as $user)
-                <h4 class="mt-0 header-title">Name- {{$user->name}} Class- {{$user->class}}</h4>
-                <p class="text-muted mb-3">Enter class and subject name <br>(class name type must be same for all same classes) </p> 
-                <form action={{ route('editStudentRecord') }} method="POST" enctype="multipart/form-data">
-                    @csrf
-                <input type="hidden" name="id" value="{{$id}}">
-                    <div class="">
-                        <label class="my-3">Edit Name</label>
-                    <input class="form-control" type="text"  id="editName" name="editName"  value="{{$user->name}}" required>
-                    </div><!-- end col -->  
-                    <div class="">
-                        <label class="my-3">Edit email</label>
-                        <input class="form-control" type="text"  id="editEmail" name="editEmail"  value="{{$user->email}}" required>
-                    </div><!-- end col -->  
-                    
-                    <div class="col-md-6">
-                        <label class="mb-3">Select Class</label>
-                       @isset($grades)
-                        <select id="editClass" name="editClass" class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" required>
-                            <option value="{{$user->grade}}">{{$user->grade}}</option>
-                            @foreach($grades as $class)   
-                            <option value="{{$class}}">{{$class}}</option>
-                           @endforeach
-                        </select>
-                        @endisset
-                    </div><!-- end col --> 
-                    <div class="col-md-6">
-                        <label class="my-3">Edit App Permission</label>
-                        <select id="editAppPermission" name="editAppPermission" class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" required>
-                            @if($user->app_permission==1)
-                            <option value="1" active>Yes</option>
-                            <option value="0">No</option>
-                            @endif
-                            @if($user->app_permission==0)
-                            <option value="0" active>No</option>
-                            <option value="1">Yes</option>
-                            @endif
-                        </select>
-                    </div><!-- end col --> 
-                    <div class="col-md-6">
-                        <label class="my-3">Edit Exam Permission</label>
-                        <select id="editExamPermission" name="editExamPermission" class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" required>
-                            @if($user->exam_permission==1)
-                            <option value="1" active>Yes</option>
-                            <option value="0">No</option>
-                            @endif
-                            @if($user->exam_permission==0)
-                            <option value="0" active>No</option>
-                            <option value="1">Yes</option>
-                            @endif
-                        </select>                    </div><!-- end col --> 
-                </div><!--end row-->   
+        <div class="col-lg-6">
+            <div class="card m-5">
+                <div class="card-body">
+                    <h2>Edit Student Record</h2>
+                    <form action="{{ route('editStudentRecord') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $id }}">
 
-                  
-                   
-                    <button type="submit" class="btn btn-gradient-primary">Save Changes</button>
-                    <button type="button" onclick="window.location='/admin/create_liveClass'" class="btn btn-gradient-danger">Cancel</button>
-                </form>  
-                @endforeach                                         
-            </div><!--end card-body-->
-        </div><!--end card-->
-    </div><!--end col-->
-</div>
+                        <!-- Admission Number -->
+                        <div class="mb-3">
+                            <label>Edit Admission No.</label>
+                            <input class="form-control" type="text" id="admission_number" name="admission_number" value="{{ $user->admission_number }}" required>
+                        </div>
 
-@endsection  
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label>Edit Name</label>
+                            <input class="form-control" type="text" id="editName" name="editName" value="{{ $user->name }}" required>
+                        </div>
 
+                        <!-- Class -->
+                        <div class="mb-3">
+                            <label>Select Class</label>
+                            @isset($grades)
+                                <select id="editClass" name="editClass" class="form-control select2" required>
+                                    <option value="{{ $user->grade }}">{{ $user->grade }}</option>
+                                    @foreach ($grades as $class)
+                                        <option value="{{ $class }}">{{ $class }}</option>
+                                    @endforeach
+                                </select>
+                            @endisset
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Edit Section</label>
+                            <input class="form-control" type="text" id="section" name="section" value="{{ $user->section }}" required>
+                        </div>
+
+                        <!-- Parent Details -->
+                        <div class="mb-3">
+                            <label>Edit Father Name</label>
+                            <input class="form-control" type="text" id="fName" name="fName" value="{{ $user->fName }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Edit Mother Name</label>
+                            <input class="form-control" type="text" id="mName" name="mName" value="{{ $user->mName }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Edit Old Balance</label>
+                            <input class="form-control" type="number" id="oldBalance" name="oldBalance" value="{{ $user->oldBalance ?? 0 }}" required>
+                        </div>
+                        <!-- Date of Birth -->
+                        <div class="mb-3">
+                            <label>Edit Date of Birth</label>
+                            <input class="form-control" type="date" id="dob" name="dob" value="{{ old('dob', $user->dob ? $user->dob->format('Y-m-d') : '') }}">
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-3">
+                            <label>Category</label>
+                            <select id="category" name="category" class="form-control select2" required>
+                                <option value="{{ $user->category->category }}">{{ $user->category->category }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->category }}">{{ $category->category }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Route -->
+                        <div class="mb-3">
+                            <label>Select Route</label>
+                            <select id="route" name="route" class="form-control select2">
+                                <option value="{{ $user->route->routeName ?? "NA"}}">{{ $user->route->routeName ?? "NA"}}</option>
+                                @foreach ($routes as $route)
+                                    <option value="{{ $route->routeName }}">{{ $route->routeName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Edit Aadhar Number</label>
+                            <input class="form-control" type="text" id="aadhar" name="aadhar" value="{{ $user->aadhar }}" required>
+                        </div>
+                       <div class="mb-3">
+                            <label>Edit PEN Number</label>
+                            <input class="form-control" type="text" id="pen" name="pen" value="{{ $user->pen }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Edit APAAR Number</label>
+                            <input class="form-control" type="text" id="apaar" name="apaar" value="{{ $user->apaar }}" required>
+                        </div>
+                        <!-- Address and Contact -->
+                        <div class="mb-3">
+                            <label>Edit Address</label>
+                            <input class="form-control" type="text" id="address" name="address" value="{{ $user->address }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Edit Mobile Number</label>
+                            <input class="form-control" type="number" id="mobile" name="mobile" value="{{ $user->mobile }}" required>
+                        </div>
+
+                        <!-- RFID -->
+                        <div class="mb-3">
+                            <label>Edit RFID</label>
+                            <input class="form-control" type="text" id="rfid" name="rfid" value="{{ $user->rfid }}">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label>Edit Email</label>
+                            <input class="form-control" type="text" id="editEmail" name="editEmail" value="{{ $user->email }}" required>
+                        </div>
+
+                        <!-- Permissions -->
+                        <div class="mb-3">
+                            <label>Edit App Permission</label>
+                            <select id="editAppPermission" name="editAppPermission" class="form-control select2" required>
+                                <option value="1" {{ $user->app_permission == 1 ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ $user->app_permission == 0 ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Edit Exam Permission</label>
+                            <select id="editExamPermission" name="editExamPermission" class="form-control select2" required>
+                                <option value="1" {{ $user->exam_permission == 1 ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ $user->exam_permission == 0 ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-gradient-primary">Save Changes</button>
+                            <button type="button" onclick="window.location='/admin/create_liveClass'" class="btn btn-gradient-danger">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
 @section('footerScript')
-
-
-<script src="{{ URL::asset('plugins/footable/js/footable.js')}}"></script>
-        <script src="{{ URL::asset('plugins/moment/moment.js')}}"></script> 
-        <script src="{{ URL::asset('assets/pages/jquery.footable.init.js')}}"></script> 
-        
+<script src="{{ URL::asset('plugins/footable/js/footable.js') }}"></script>
+<script src="{{ URL::asset('plugins/moment/moment.js') }}"></script>
+<script src="{{ URL::asset('assets/pages/jquery.footable.init.js') }}"></script>
 @stop

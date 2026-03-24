@@ -7,27 +7,13 @@
 <link href="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" /> 
+<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
-
-
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round mt-3 ">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger b-round  mt-3 ">
-    {{ session('failed') }}
-</div>
-@endif
-@if (session('delete'))
-<div class="alert alert-warning b-round  mt-3">
-    {{ session('delete') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
 
 <div class="row m-3">
     <div class="col-lg-12">
@@ -45,6 +31,14 @@
                             <th>S.No.</th>
                             <th>Image</th>
                             <th>Name</th>
+                            <th>Serial No.</th>
+                            <th>Father Name</th>
+                            <th>Mother Name</th>
+                            <th>Date of Birth</th>
+                            <th>Date of Joining</th>
+                            <th>Address</th>
+                            <th>Mobile</th>
+                            <th>RFID</th>
                             <th>Email</th>
                             <th>Sub 1</th>
                             <th>Sub 2</th>
@@ -57,7 +51,7 @@
                             <th>Sub 9</th>
                             <th>Sub 10</th>
                             <th>Sub 11</th>
-                            <th>Sub 12</th>                           
+                            <th>Sub 12</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -66,13 +60,22 @@
                             $i=1;
                         @endphp
                         @foreach ($teachers as $teacher)
-                      
+
                         <tr>
                             <td>{{$i}}</td>
                             <td>
-                                <img src="{{ URL::asset('assets/images/teacherImg/' . $teacher->name)}}"  class="rounded-circle thumb-xl">                                        
+                                <img src="{{ Storage::disk('s3')->url('teacherImg/' . $teacher->name . '.jpg') }}" class="rounded-circle thumb-xl">
+                                {{-- <img src="{{ URL::asset('assets/images/teacherImg/' . $teacher->name . '.jpg')}}"  class="rounded-circle thumb-xl"> --}}
                             </td>
                             <td>{{$teacher->name}}</td>
+                            <td>{{$teacher->srNo}}</td>
+                            <td>{{$teacher->fName}}</td>
+                            <td>{{$teacher->mName}}</td>
+                            <td>{{$teacher->dob}}</td>
+                            <td>{{$teacher->doj}}</td>
+                            <td>{{$teacher->address}}</td>
+                            <td>{{$teacher->mobile}}</td>
+                            <td>{{$teacher->rfid}}</td>
                             <td>{{$teacher->email}}</td>
                         </td>
                         <td>
@@ -178,14 +181,14 @@
     </div> <!-- end col -->
 </div>
 
-@endsection  
+@endsection
 
 
 @section('footerScript')
 
 <script src="{{ URL::asset('plugins/footable/js/footable.js')}}"></script>
-        <script src="{{ URL::asset('plugins/moment/moment.js')}}"></script> 
-        <script src="{{ URL::asset('assets/pages/jquery.footable.init.js')}}"></script> 
+        <script src="{{ URL::asset('plugins/moment/moment.js')}}"></script>
+        <script src="{{ URL::asset('assets/pages/jquery.footable.init.js')}}"></script>
          <!-- Required datatable js -->
          <script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
          <script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>

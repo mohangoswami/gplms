@@ -39,11 +39,11 @@ class TeacherResultController extends Controller
         $subCodes[] =  Auth::guard('teacher')->user()->class_code9;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code10;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code11;
-        
+
         $classCodes = subCode::all()->sortBy("class");
 
-        $resultLists  = Exam::all()->where('email',Auth::user()->email)->sortByDesc('created_at');   
-           
+        $resultLists  = Exam::all()->where('admission_number',Auth::user()->admission_number)->sortByDesc('created_at');
+
         return view('/teacher/resultList',compact('subCodes','resultLists','classCodes'));
     }
 
@@ -61,11 +61,11 @@ class TeacherResultController extends Controller
         $subCodes[] =  Auth::guard('teacher')->user()->class_code9;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code10;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code11;
-        
+
         $classCodes = subCode::all()->sortBy("class");
         $exams = Exam::all()->where('id',$id);
-        $results  = studentExams::all()->where('titleId',$id)->sortByDesc('created_at');   
-           
+        $results  = studentExams::all()->where('titleId',$id)->sortByDesc('created_at');
+
         return view('/teacher/result',compact('subCodes','results','classCodes','id','exams'));
     }
 
@@ -104,4 +104,8 @@ class TeacherResultController extends Controller
             return redirect('teacher/result/'.$id)->with('failed',"operation failed");
         }
       }
+
+
+
+
 }

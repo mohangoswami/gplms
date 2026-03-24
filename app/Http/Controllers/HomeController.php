@@ -30,14 +30,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $subCodes  = subCode::all()->where('class',Auth::user()->grade);   
-        $subjects  = subCode::all()->where('class',Auth::user()->grade);  
-        $class = Auth::user()->grade; 
+        $subCodes  = subCode::all()->where('class',Auth::user()->grade);
+        $subjects  = subCode::all()->where('class',Auth::user()->grade);
+        $class = Auth::user()->grade;
         $classWorks  = classwork::all()->where('class',Auth::user()->grade)->sortByDesc('created_at');
         $user = Auth::user();
         $flashNews = flashNews::all()->sortByDesc('created_at');
        //dd(Auth::user()->email);
          return view('student.dashboard',compact('classWorks','subjects','subCodes','user','class','flashNews'));
-      
+
     }
 }

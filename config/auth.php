@@ -54,6 +54,10 @@ return [
             'driver' => 'session',
             'provider' => 'teachers',
         ],
+        'cashier' => [
+            'driver' => 'session',
+            'provider' => 'cashiers',
+        ],
     ],
 
     /*
@@ -77,7 +81,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-        ],
+            'username' => 'admission_number', // Add this line
+    ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
@@ -86,6 +91,13 @@ return [
             'driver' => 'eloquent',
             'model' => App\Teacher::class,
         ],
+
+        'cashiers' => [
+            'driver' => 'eloquent',
+            'model' => App\Cashier::class,
+        ],
+
+
 
         // 'users' => [
         //     'driver' => 'database',
@@ -123,6 +135,12 @@ return [
         ],
         'teachers' => [
             'provider' => 'teachers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'cashiers' => [
+            'provider' => 'cashiers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

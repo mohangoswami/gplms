@@ -5,20 +5,15 @@
 <link href="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" /> 
+<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @stop
- 
+
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger">
-    {{ session('failed') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
+
 
 <div class="container-fluid mt-3">
     <!-- Page-Title -->
@@ -27,7 +22,7 @@
             <h3>{{$subject}}</h3>
                 @php
                     $titles[]=Null;
-                   
+
 
                 @endphp
                 @foreach ($classDatas as $classData)
@@ -56,7 +51,7 @@
                             # code...
                             }
                     @endphp
-                 <a href="/student/inner_classroom/{{$classData->id}}">  
+                 <a href="/student/inner_classroom/{{$classData->id}}">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mt-0 header-title">{{$classData->title}}</h4>
@@ -78,7 +73,7 @@
         </div>
     </div>
 
-    
+
 @endsection
 
 

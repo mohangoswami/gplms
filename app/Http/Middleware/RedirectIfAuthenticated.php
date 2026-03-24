@@ -19,6 +19,10 @@ class RedirectIfAuthenticated
             return redirect()->route('teacher.dashboard');
         }
 
+        if ($guard == "cashier" && Auth::guard($guard)->check()) {
+            return redirect()->route('cashier.dashboard');
+        }
+
         if (Auth::guard($guard)->check()) {
             return redirect()->route('home');
         }

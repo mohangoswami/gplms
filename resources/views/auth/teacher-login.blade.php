@@ -1,132 +1,102 @@
-@extends('layouts.index-master')
-
-@section('content')
-
-<!-- Log In page -->
-<div class="container">
-    <div class="row vh-100 ">
-        <div class="col-12 align-self-center">
-            <div class="auth-page">
-                <div class="card auth-card shadow-lg">
-                    <div class="card-body">
-                        <div class="px-3">
-                            <div class="auth-logo-box">
-                                <a href="/" class="logo logo-admin"><img src="{{ URL::asset('assets/images/gpl_logo2.png') }}" height="55" alt="logo" class="auth-logo"></a>
-                            </div>
-                            <!--end auth-logo-box-->
-
-                            <div class="text-center auth-logo-text">
-                                <h4 class="mt-0 mb-3 mt-5">Welcome to G P L M School</h4>
-                                <p class="text-muted mb-0">Sign in as a Teacher.</p>
-                            </div>
-                            <!--end auth-logo-text-->
-
-                            <form method="POST" action="{{ route('teacher.login.submit') }}">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="username">Email</label>
-                                    <div class="input-group mb-3">
-                                        <span class="auth-form-icon">
-                                            <i class="dripicons-user"></i>
-                                        </span>
-                                        <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" @if(old('email')) value="{{ old('email') }}" @else value="" @endif value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-
-                                    </div>
-                                </div>
-                                <!--end form-group-->
-
-                                <div class="form-group">
-                                    <label for="userpassword">Password</label>
-                                    <div class="input-group mb-3">
-                                        <span class="auth-form-icon">
-                                            <i class="dripicons-lock"></i>
-                                        </span>
-
-                                        <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" value="" required autocomplete="current-password">
-
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-
-                                    </div>
-                                </div>
-                                 <!--end form-group-->
-                                <!--
-                                <div class="form-group row mt-4">
-                                    <div class="col-sm-6">
-                                        <div class="custom-control custom-switch switch-success">
-                                            <input class="custom-control-input" type="checkbox" name="remember" id="customSwitchSuccess" {{ old('remember') ? 'checked' : '' }}>
-
-                                            <label class="custom-control-label text-muted" for="customSwitchSuccess">Remember me</label>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
-                                
-                                    <div class="col-sm-6 text-right">
-                                        @if (Route::has('password.request'))
-                                        <a href="{{ route('password.request') }}" class="text-muted font-13"><i class="dripicons-lock"></i> Forgot password?</a>
-                                        @endif
-                                    </div>
-                                    <!--end col
-                                </div>
-                                <!--end form-group-->
-
-                                <div class="form-group mb-0 row">
-                                    <div class="col-12 mt-2">
-                                        <button class="btn btn-gradient-primary btn-round btn-block waves-effect waves-light" type="submit">Log In <i class="fas fa-sign-in-alt ml-1"></i></button>
-                                    </div>
-                                    <!--end col-->
-                                </div>
-                                <!--end form-group-->
-                            </form>
-                            <!--end form-->
-                        </div>
-                        <!--end /div-->
-
-                        <div class="m-3 text-center text-muted">
-                            <p class="">Don't have an account ? <a href="{{ route('register') }}" class="text-primary ml-2">Free Register</a></p>
-                        </div>
-                    </div>
-                    <!--end card-body-->
-                </div>
-                <!--end card-
-                <div class="account-social text-center mt-4">
-                    <h6 class="my-4">Or Login With</h6>
-                    <ul class="list-inline mb-4">
-                        <li class="list-inline-item">
-                            <a href="" class="">
-                                <i class="fab fa-facebook-f facebook"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="" class="">
-                                <i class="fab fa-twitter twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="" class="">
-                                <i class="fab fa-google google"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!--end account-social-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GPLM School</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #f8c8dc, #f4a6c0); /* Light Pink Gradient */
+        }
+        .navbar {
+            width: 100%;
+            background: white;
+            padding: 0.5rem; /* Reduced height to half */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-card {
+            width: 350px;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .logo img {
+            width: 80px;
+        }
+        .btn-primary {
+            background: black;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: #333;
+        }
+        .form-label {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">GPLM School</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Login As
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+                    <li><a class="dropdown-item" href="/">Student</a></li>
+                    <li><a class="dropdown-item" href="/admin/login">Admin</a></li>
+                </ul>
             </div>
-            <!--end auth-page-->
         </div>
-        <!--end col-->
-    </div>
-    <!--end row-->
-</div>
-<!--end container-->
-<!-- End Log In page -->
-@endsection
+    </nav>
 
+    <div class="login-card mt-5">
+        <div class="logo mb-3">
+            <img src="{{ URL::asset('assets/images/gpl_logo2.png') }}" alt="Logo">
+        </div>
+        <h3><strong>G P L M School</strong></h3>
+        <h4>Teacher login</h4>
+        <form method="POST" action="{{ route('teacher.login.submit') }}">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
+                        👁️
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <a href="#" class="text-muted">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Log In</button>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

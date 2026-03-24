@@ -38,9 +38,9 @@ class teacherExamController extends Controller
         $subCodes[] =  Auth::guard('teacher')->user()->class_code9;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code10;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code11;
-        
+
         $classCodes = subCode::all()->sortBy("class");
-        
+
         $classworks  = classwork::all()->sortBy("class");
         return view('teacher.createExam', compact('subCodes','classCodes','classworks'));
     }
@@ -66,7 +66,7 @@ class teacherExamController extends Controller
         $data = $request->input();
         $id = $data['id'];
 
-        $daterange = $data['datetimes'];        
+        $daterange = $data['datetimes'];
         $split = explode('-', $daterange);
         $startExam = date("Y-m-d H:i:s ", strtotime($split[0]));
         $endExam = date("Y-m-d H:i:s ", strtotime($split[1]));
@@ -95,11 +95,11 @@ class teacherExamController extends Controller
         }
         catch(Exception $e){
             return redirect('teacher/createTitle/'.$id)->with('failed',"operation failed");
-        
+
         }
 
     }
-    
+
 
     public function allExams(){
         $subCodes[] =  Auth::guard('teacher')->user()->class_code0;
@@ -114,9 +114,9 @@ class teacherExamController extends Controller
         $subCodes[] =  Auth::guard('teacher')->user()->class_code9;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code10;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code11;
-        
+
         $classCodes = subCode::all()->sortBy("class");
-        
+
         $classworks  = classwork::all()->sortBy("class");
 
         $exams = Exam::all()->where('email',Auth::user()->email);
@@ -136,10 +136,10 @@ class teacherExamController extends Controller
 		echo "validator fail";
 		}
 		else{
-            
+
             $data = $request->input();
-            
-            $daterange = $data['datetimes'];        
+
+            $daterange = $data['datetimes'];
             $split = explode('-', $daterange);
             $startExam = date("Y-m-d H:i:s ", strtotime($split[0]));
             $endExam = date("Y-m-d H:i:s ", strtotime($split[1]));
@@ -158,7 +158,7 @@ class teacherExamController extends Controller
                 $exam->discription = $data['discription'];
                 $exam->subject = $subject;
                 $exam->class = $class;
-                $exam->fileUrl = 'https://brefnew-dev-storage-1xk3pgbkrilzi.s3.amazonaws.com/' . $class . '/' . $subject . '/' . 'exams' . '/' . $data['title'] . '/' . $request->file->getClientOriginalName();
+                $exam->fileUrl = 'https://gplmschool-dev-storage-vkmjgjn4dvol.s3.amazonaws.com/' . $class . '/' . $subject . '/' . 'exams' . '/' . $data['title'] . '/' . $request->file->getClientOriginalName();
                 $exam->fileSize = $request->file('file')->getSize();
                 $exam->startExam = $startExam;
                 $exam->endExam = $endExam;
@@ -166,26 +166,26 @@ class teacherExamController extends Controller
                 $exam->studentReturn = 1;
                 $exam->type = 'PDF';
                 $exam->save();
-                
-               
+
+
                 $file = $request->file('file');
                 $imageName = $class . '/' . $subject . '/' . 'exams' . '/' . $data['title'] . '/' .  $file->getClientOriginalName();
 
                 Storage::disk('s3')->put($imageName, file_get_contents($file));
                 Storage::disk('s3')->setVisibility($imageName, 'public');
-                
+
                 $title = $data['title'];
                 $examId = $exam->id;
                 $type = "PDF";
                 $workType = "Exam";
                 //   User::where('email','bali4u2001@gmail.com') -> first()->notify(new emailNotification);
-                   User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
-                       $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                   });
-                   Admin::all()->each(function (Admin $user) use ($workType,$examId,$class,$subject,$title,$type){
-                    $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                });
-                 
+                //    User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //        $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                //    });
+                //    Admin::all()->each(function (Admin $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //     $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                // });
+
 				return redirect('teacher/createExam')->with('status','Insert successfully');
 			}
 			catch(Exception $e){
@@ -205,10 +205,10 @@ class teacherExamController extends Controller
 		echo "validator fail";
 		}
 		else{
-            
+
             $data = $request->input();
-            
-            $daterange = $data['datetimes'];        
+
+            $daterange = $data['datetimes'];
             $split = explode('-', $daterange);
             $startExam = date("Y-m-d H:i:s ", strtotime($split[0]));
             $endExam = date("Y-m-d H:i:s ", strtotime($split[1]));
@@ -227,7 +227,7 @@ class teacherExamController extends Controller
                 $exam->discription = $data['imgDiscription'];
                 $exam->subject = $subject;
                 $exam->class = $class;
-                $exam->fileUrl = 'https://brefnew-dev-storage-1xk3pgbkrilzi.s3.amazonaws.com/' . $class . '/' . $subject . '/' . 'exams' . '/' . $data['imgTitle'] . '/' . $request->file->getClientOriginalName();
+                $exam->fileUrl = 'https://gplmschool-dev-storage-vkmjgjn4dvol.s3.amazonaws.com/' . $class . '/' . $subject . '/' . 'exams' . '/' . $data['imgTitle'] . '/' . $request->file->getClientOriginalName();
                 $exam->fileSize = $request->file('file')->getSize();
                 $exam->startExam = $startExam;
                 $exam->endExam = $endExam;
@@ -235,27 +235,27 @@ class teacherExamController extends Controller
                 $exam->studentReturn = 1;
                 $exam->type = 'IMG';
                 $exam->save();
-                
-                
+
+
                 $file = $request->file('file');
                 $imageName = $class . '/' . $subject . '/' . 'exams' . '/' . $data['imgTitle'] . '/' .  $file->getClientOriginalName();
 
                 Storage::disk('s3')->put($imageName, file_get_contents($file));
                 Storage::disk('s3')->setVisibility($imageName, 'public');
-                
+
                 $title = $data['imgTitle'];
                 $examId = $exam->id;
                 $type = "IMG";
                 $workType = "Exam";
-                
+
                 //   User::where('email','bali4u2001@gmail.com') -> first()->notify(new emailNotification);
-                   User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
-                       $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                   });
-                   Admin::all()->each(function (Admin $user) use ($workType,$examId,$class,$subject,$title,$type){
-                    $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                });
-                         
+                //    User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //        $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                //    });
+                //    Admin::all()->each(function (Admin $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //     $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                // });
+
 				return redirect('teacher/createExam')->with('status','Insert successfully');
 			}
 			catch(Exception $e){
@@ -275,10 +275,10 @@ class teacherExamController extends Controller
 		echo "validator fail";
 		}
 		else{
-            
+
             $data = $request->input();
-           
-            $daterange = $data['datetimes'];        
+
+            $daterange = $data['datetimes'];
             $split = explode('-', $daterange);
             $startExam = date("Y-m-d H:i:s ", strtotime($split[0]));
             $endExam = date("Y-m-d H:i:s ", strtotime($split[1]));
@@ -297,7 +297,7 @@ class teacherExamController extends Controller
                 $exam->discription = $data['docDiscription'];
                 $exam->subject = $subject;
                 $exam->class = $class;
-                $exam->fileUrl = 'https://brefnew-dev-storage-1xk3pgbkrilzi.s3.amazonaws.com/' . $class . '/' . $subject . '/' . 'exams' . '/' . $data['docTitle'] . '/' . $request->file->getClientOriginalName();
+                $exam->fileUrl = 'https://gplmschool-dev-storage-vkmjgjn4dvol.s3.amazonaws.com/' . $class . '/' . $subject . '/' . 'exams' . '/' . $data['docTitle'] . '/' . $request->file->getClientOriginalName();
                 $exam->fileSize = $request->file('file')->getSize();
                 $exam->startExam = $startExam;
                 $exam->endExam = $endExam;
@@ -305,25 +305,25 @@ class teacherExamController extends Controller
                 $exam->studentReturn = 1;
                 $exam->type = 'DOCS';
                 $exam->save();
-                
+
                 $file = $request->file('file');
                 $imageName = $class . '/' . $subject . '/' . 'exams' . '/' . $data['docTitle'] . '/' .  $file->getClientOriginalName();
 
                 Storage::disk('s3')->put($imageName, file_get_contents($file));
                 Storage::disk('s3')->setVisibility($imageName, 'public');
-               
+
                 $title = $data['docTitle'];
                 $examId = $exam->id;
                 $type = "DOCS";
                 $workType = "Exam";
                 //   User::where('email','bali4u2001@gmail.com') -> first()->notify(new emailNotification);
-                   User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
-                       $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                   });
-                   Admin::all()->each(function (Admin $user) use ($workType,$examId,$class,$subject,$title,$type){
-                    $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                });
-                    
+                //    User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //        $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                //    });
+                //    Admin::all()->each(function (Admin $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //     $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                // });
+
                 return redirect('teacher/createExam')->with('status','Insert successfully');
 			}
 			catch(Exception $e){
@@ -343,14 +343,14 @@ class teacherExamController extends Controller
 		echo "validator fail";
 		}
 		else{
-            
+
             $data = $request->input();
 
-            $daterange = $data['datetimes'];        
+            $daterange = $data['datetimes'];
             $split = explode('-', $daterange);
             $startExam = date("Y-m-d H:i:s ", strtotime($split[0]));
             $endExam = date("Y-m-d H:i:s ", strtotime($split[1]));
-           
+
 			try{
                 $getClassSubs = DB::select('SELECT * FROM sub_codes WHERE id = ?' , [$data['formGrade']]);
               // dd($data['ytGrade']);
@@ -372,21 +372,21 @@ class teacherExamController extends Controller
                 if(isset($data['formStudentWorkIsrequire'])){
                     $exam->studentReturn = 1;
                     }
-                $exam->type = 'FORM';                
+                $exam->type = 'FORM';
                 $exam->save();
-                
+
                 $title = $data['formTitle'];
                 $examId = $exam->id;
                 $type = "FORM";
                 $workType = "Exam";
                 //   User::where('email','bali4u2001@gmail.com') -> first()->notify(new emailNotification);
-                   User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
-                       $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                   });
-                   Admin::all()->each(function (Admin $admin) use ($workType,$examId,$class,$subject,$title,$type){
-                    $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
-                });
-                     
+                //    User::all()->where('grade',$class)->each(function (User $user) use ($workType,$examId,$class,$subject,$title,$type){
+                //        $user->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                //    });
+                //    Admin::all()->each(function (Admin $admin) use ($workType,$examId,$class,$subject,$title,$type){
+                //     $admin->notify(new emailNotification($workType,$examId,$class,$subject,$title,$type));
+                // });
+
                 return redirect('teacher/createExam')->with('status','Insert successfully');
 			}
 			catch(Exception $e){
@@ -408,9 +408,9 @@ class teacherExamController extends Controller
         $subCodes[] =  Auth::guard('teacher')->user()->class_code9;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code10;
         $subCodes[] =  Auth::guard('teacher')->user()->class_code11;
-        
+
         $classCodes = subCode::all()->sortBy("class");
-        
+
         $exams = Exam::all()->where('id',$id);
 
         foreach($exams as $exam){
@@ -427,5 +427,7 @@ class teacherExamController extends Controller
             $maxMarks = $exam->maxMarks;
         }
         return view('teacher.formExam', compact('id','exams','subCodes','classCodes'));
-    }    
+    }
+
+
 }

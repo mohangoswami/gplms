@@ -51,14 +51,14 @@
                             @endisset
                         </ul>
                     </div>
-                </div>    
+                </div>
             </div><!--end card-body-->
         </div><!--end card-->
     </div><!--end col-->
 </div>  <!--end row-->
 
         <div class="row">
-                 
+
             <div class="col-lg-9">
                 <div class="card">
                     <div class="card-body dash-info-carousel">
@@ -95,12 +95,12 @@
                                         @else
                                         <i class="mdi mdi-checkbox-marked-circle-outline bg-soft-success"></i>
                                         @endif
-                                        <div class="media-body align-self-center">                                                          
+                                        <div class="media-body align-self-center">
                                         <h4 class="mt-0 mb-1 title-text text-dark">{{$classWork->subject}} - {{$classWork->title}}</h4>
-                                        <div class="">                                                                                
+                                        <div class="">
                                             <p class="text-muted mb-0">{{$classWork->name}}</p>
                                         </div>
-                                        <div class="text-right">                                                                                
+                                        <div class="text-right">
                                             <p class="text-muted mb-0">{{$classWork->created_at->format('d/M')}}</p>
                                         </div>                                                                            </div>
                                     </div>
@@ -126,13 +126,13 @@
                                         </a>
                                         @else
                                         <i class="mdi mdi-checkbox-marked-circle-outline bg-soft-success"></i>
-                                        @endif                                                                            
-                                        <div class="media-body align-self-center">                                                          
+                                        @endif
+                                        <div class="media-body align-self-center">
                                             <h4 class="mt-0 mb-1 title-text">{{$classWork->subject}} - {{$classWork->title}}</h4>
-                                            <div class="">                                                                                
+                                            <div class="">
                                                 <p class="text-muted mb-0">{{$classWork->name}}</p>
                                             </div>
-                                            <div class="text-right">                                                                                
+                                            <div class="text-right">
                                                 <p class="text-muted mb-0">{{$classWork->created_at->format('d/M')}}</p>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="row my-3">
                             <div class="col-sm-6">
-                                <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-secondary"></i>New uploaded Work</p>                            
+                                <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-secondary"></i>New uploaded Work</p>
                             </div><!-- end col-
                             <div class="col-sm-6">
                                 <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-warning"></i>New Leads Target</p>
@@ -167,17 +167,17 @@
                         </div><!-- end row-->
                         <div class="progress bg-warning mb-3" style="height:5px;">
                             <div class="progress-bar bg-secondary" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                                                            
+                        </div>
                     </div><!--end card-body-->
                 </div><!--end card-->
             </div> <!--end col--
-            
+
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <div class="p-4 bg-light text-center align-item-center">                                                                    
-                            <h1 class="font-weight-semibold">4.8</h1> 
-                            <h4 class="header-title">Overall Rating</h4>  
+                        <div class="p-4 bg-light text-center align-item-center">
+                            <h1 class="font-weight-semibold">4.8</h1>
+                            <h4 class="header-title">Overall Rating</h4>
                             <ul class="list-inline mb-0 product-review">
                                 <li class="list-inline-item mr-0"><i class="mdi mdi-star text-warning font-24"></i></li>
                                 <li class="list-inline-item mr-0"><i class="mdi mdi-star text-warning font-24"></i></li>
@@ -185,12 +185,12 @@
                                 <li class="list-inline-item mr-0"><i class="mdi mdi-star text-warning font-24"></i></li>
                                 <li class="list-inline-item mr-0"><i class="mdi mdi-star-half text-warning font-24"></i></li>
                                 <li class="list-inline-item"><small class="text-muted">Total Review (700)</small></li>
-                            </ul>                                     
-                        </div> 
-                    </div><!--end card-body--                                                                                                
+                            </ul>
+                        </div>
+                    </div><!--end card-body--
                 </div><!--end card--
             </div><!--end col--
-        </div><!--end row-->   
+        </div><!--end row-->
     </div>
         @php
             $color = ["primary", "secondary", "success", "danger", "warning", "info"];
@@ -211,30 +211,32 @@
             <a href="{{route('student.classroom',[$subject->id])}}">
                 <div class="card profile-card "style="border-radius: 10%" >
                 <div class="card-body p-0 bg-{{$color[$c]}} "style="border-radius: 10%">
-                        <div class="media p-3  align-items-center" >                                                
-                            <img src="{{ URL::asset('assets/images/teacherImg/' . $classWork->name . '.jpg')}}"class="rounded-circle thumb-xl">                                        
+                        <div class="media p-3  align-items-center" >
+                             <img src="{{ Storage::disk('s3')->url('teacherImg/'  . $classWork->name . '.jpg')}}"class="rounded-circle thumb-xl"  oncontextmenu="return false;"
+                             draggable="false"
+                             style="pointer-events: none;">
                             <div class="media-body ml-3 align-self-center">
                                 <h5 class="pro-title text-{{$opposite_color[$c]}}">{{$subject->subject}} <span class="badge badge-warning font-10">New</span></h5>
-                                <p class="mb-1 ">{{$classWork->name}}</p> 
-                                <p class="mb-0"><i class="mdi mdi-bell-ring-outline text-{{$opposite_color[$c]}} mr-1"></i>{{$classWork->title}} ({{$classWork->created_at->format('d/M')}})</p>                                              
+                                <p class="mb-1 ">{{$classWork->name}}</p>
+                                <p class="mb-0"><i class="mdi mdi-bell-ring-outline text-{{$opposite_color[$c]}} mr-1"></i>{{$classWork->title}} ({{$classWork->created_at->format('d/M')}})</p>
                             </div>
                             <div class="action-btn">
-                                
-                            </div>                                                                              
-                        </div>                                    
-                    </div><!--end card-body-->                 
-                </div><!--end card--> 
+
+                            </div>
+                        </div>
+                    </div><!--end card-body-->
+                </div><!--end card-->
             </a>
         </div><!--end col-->
         @php
             $c=$c+1;
         @endphp
-            @break    
+            @break
             @endif
             @endforeach
             @endforeach
             @endisset
-        </div><!--end row-->    
+        </div><!--end row-->
 
                 @stop
 

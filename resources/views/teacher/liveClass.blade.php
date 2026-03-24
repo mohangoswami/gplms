@@ -20,13 +20,13 @@
         <h3>Today's Live Classes</h3>
     </div>
     <div class="row mt-3">
-        
+
         @foreach ($subCodes as $subCode)
             @foreach ($classCodes as $classCode)
-              @if($subCode == $classCode->id)  
-           
+              @if($subCode == $classCode->id)
+
 @php
-        
+
           $currentTimestamp = strtotime(date('H:i:s'));
           if(isset($classCode->start_time)){
           $starttime = $classCode->start_time;
@@ -40,17 +40,17 @@
           $endTimestamp = strtotime($endtime);
           $numOfSecondsToReload = $startTimestamp - $currentTimestamp;
           $numOfSecondsToEnd = $endTimestamp - $currentTimestamp;
-  
+
          /*echo date('H:i:s')."<br>";
           echo $starttime."<br>";
           echo $numOfSecondsToReload."<br>";
           echo $endtime."<br>";
           echo $numOfSecondsToEnd."<br>";*/
-          $none = true; 
+          $none = true;
           if(isset($startTimestamp)){
-            $liveat = true;  
+            $liveat = true;
           }else{
-            $liveat = false;  
+            $liveat = false;
           }
 
           if($classCode->Monday=="on"){
@@ -106,21 +106,21 @@
           }
         }
           if($currentTimestamp >= $startTimestamp && $currentTimestamp < $endTimestamp){
-           
+
             if($Monday==date('l')){
-           
+
             $none = false;
             $liveat = false;
           }
           if($Tuesday==date('l')){
-        
+
             $none =false;
             $liveat =false;
           } if($Wednesday==date('l')){
             $none =false;
             $liveat =false;
            } if($Thursday==date('l')){
-       
+
             $none =false;
             $liveat =false;
          } if($Friday==date('l')){
@@ -144,21 +144,21 @@
             <div class="col-lg-4">
             <div class="card profile-card bg-info "style="border-radius: 10%" >
             <div class="card-body p-0 bg-{{$color[$c]}} "style="border-radius: 20%">
-                    <div class="media p-3  align-items-center" >                                                
-                        <img src="{{ URL::asset('assets/images/cards/google-meet-logo.png')}}" alt="user" class="rounded-circle thumb-xl">                                        
+                    <div class="media p-3  align-items-center" >
+                        <img src="{{ URL::asset('assets/images/cards/google-meet-logo.png')}}" alt="user" class="rounded-circle thumb-xl">
                         <div class="media-body ml-3 align-self-center">
-                            <h5 class="pro-title text-{{$opposite_color[$c]}}">{{$classCode->subject}} 
+                            <h5 class="pro-title text-{{$opposite_color[$c]}}">{{$classCode->class}} - {{$classCode->subject}}
                                 <span class="badge badge-warning font-10" @if($liveat==true) style="display: none;"@endif >Live Now</span></h5>
-                            <p class="mb-0"><i class="fa fa-clock text-{{$opposite_color[$c]}} mr-1"></i><i class="fas fa-play text-{{$opposite_color[$c]}} mr-1"></i>{{date('h:ia', strtotime($classCode->start_time))}}</p>                                              
-                            <p class="mb-0"><i class="fa fa-clock text-{{$opposite_color[$c]}} mr-1"></i><i class="fas fa-stop text-{{$opposite_color[$c]}} mr-1"></i>{{date('h:ia', strtotime($classCode->end_time))}}</p>                                              
+                            <p class="mb-0"><i class="fa fa-clock text-{{$opposite_color[$c]}} mr-1"></i><i class="fas fa-play text-{{$opposite_color[$c]}} mr-1"></i>{{date('h:ia', strtotime($classCode->start_time))}}</p>
+                            <p class="mb-0"><i class="fa fa-clock text-{{$opposite_color[$c]}} mr-1"></i><i class="fas fa-stop text-{{$opposite_color[$c]}} mr-1"></i>{{date('h:ia', strtotime($classCode->end_time))}}</p>
                         </div>
                         @if($liveat==false)
-                        <div class="button-list btn-social-icon">                                                
+                        <div class="button-list btn-social-icon">
                             <a href="{{$classCode->link_url}}" class="btn btn-{{$opposite_color[$c]}} btn-circle " >
-                                Join 
+                                Join
                             </a>
                         </div>
-                        @endif                                                                           
+                        @endif
                     </div>
                     <div class="ml-4 mb-3 class="d-flex justify-content-between">
                       @if($classCode->Monday=="on")
@@ -197,10 +197,10 @@
                         </div>
                         @endif
 
-                        
-                    </div>                                     
-                </div><!--end card-body-->                 
-            </div><!--end card--> 
+
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
     </div><!--end col-->
     @php
         $c=$c+1;
@@ -211,16 +211,16 @@
         @endforeach
         @endforeach
 
-    </div><!--end row-->    
+    </div><!--end row-->
 @stop
 
 @section('footerScript')
 <script type="text/javascript">
-  
+
      window.onload = function() {
  var timeout =  setInterval(function() {
     location.reload(true);
-  }, 60000); 
+  }, 60000);
 
 };
 </script>

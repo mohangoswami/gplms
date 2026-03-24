@@ -8,29 +8,39 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
-        "bref/bref": "^1.1",
-        "bref/laravel-bridge": "^1.0",
+        "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^3.1",
+        "bref/bref": "^2.3",
+        "bref/laravel-bridge": "^2.0",
         "doctrine/dbal": "^3.0",
-        "fideloper/proxy": "^4.2",
+        "fpdf/fpdf": "^1.86",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^9.0",
+        "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "league/flysystem-aws-s3-v3": "^1.0"
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "razorpay/razorpay": "^2.9",
+        "setasign/fpdi": "^2.6",
+        "symfony/http-client": "^6.2",
+        "symfony/mailgun-mailer": "^6.2"
     },
     "require-dev": {
-        "facade/ignition": "^2.3.6",
+        "spatie/laravel-ignition": "^1.0",
         "fzaninotto/faker": "^1.9.1",
+        "nunomaduro/collision": "^6.3",
         "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.6.33"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform-check": false,
+        "platform": {
+            "php": "8.2"
+        }
     },
     "extra": {
         "laravel": {

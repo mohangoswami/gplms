@@ -1,0 +1,4 @@
+#Thu Apr 10 14:26:37 IST 2025
+base.0=/Users/mohangoswami/gplmschool_fiu/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

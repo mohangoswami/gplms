@@ -16,12 +16,12 @@
                 </div>
                 <!--end logo-->
                 <!-- Navbar -->
-                <nav class="navbar-custom">    
-                    <ul class="list-unstyled topbar-nav float-right mb-0"> 
+                <nav class="navbar-custom">
+                    <ul class="list-unstyled topbar-nav float-right mb-0">
                         <li class="hidden-sm">
                             <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="javascript: void(0);" role="button"
                                 aria-haspopup="false" aria-expanded="false">
-                                English <img src="{{ URL::asset('assets/images/flags/us_flag.jpg')}}" class="ml-2" height="16" alt=""/> <i class="mdi mdi-chevron-down"></i> 
+                                English <img src="{{ URL::asset('assets/images/flags/us_flag.jpg')}}" class="ml-2" height="16" alt=""/> <i class="mdi mdi-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="javascript: void(0);"><span> German </span><img src="{{ URL::asset('assets/images/flags/germany_flag.jpg')}}" alt="" class="ml-2 float-right" height="14"/></a>
@@ -39,10 +39,10 @@
                                 <span class="badge badge-danger badge-pill noti-icon-badge">2</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-lg pt-0">
-                            
+
                                 <h6 class="dropdown-item-text font-15 m-0 py-3 bg-primary text-white d-flex justify-content-between align-items-center">
                                     Notifications <span class="badge badge-light badge-pill">2</span>
-                                </h6> 
+                                </h6>
                                 <div class="slimscroll notification-list">
                                     <!-- item-->
                                     <a href="#" class="dropdown-item py-3">
@@ -120,7 +120,7 @@
                         <li class="dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="false" aria-expanded="false">
-                                <img src="{{ URL::asset('assets/images/users/user-1.jpg')}}" alt="profile-user" class="rounded-circle" /> 
+                                <img src="{{ URL::asset('assets/images/users/user-1.jpg')}}" alt="profile-user" class="rounded-circle" />
                                 <span class="ml-1 nav-user-name hidden-sm">Alvin <i class="mdi mdi-chevron-down"></i> </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -135,7 +135,7 @@
                         <li>
                             <a href="#" class="nav-link" data-toggle="modal" data-animation="fade" data-target=".modal-rightbar">
                                 <i data-feather="align-right" class="align-self-center"></i>
-                            </a>                  
+                            </a>
                         </li>
                         <li class="menu-item">
                             <!-- Mobile menu toggle-->
@@ -146,13 +146,13 @@
                                     <span></span>
                                 </div>
                             </a><!-- End mobile menu toggle-->
-                        </li> <!--end menu item-->   
+                        </li> <!--end menu item-->
                     </ul><!--end topbar-nav-->
-        
+
                     <ul class="list-unstyled topbar-nav mb-0">
                         <li class="dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="false" aria-expanded="false">                            
+                                aria-haspopup="false" aria-expanded="false">
                                 <span class="p-2 bg-soft-purple nav-user-name hidden-sm rounded">System <i class="mdi mdi-chevron-down"></i> </span>
                             </a>
                             <div class="dropdown-menu dropdown-xl dropdown-menu-left p-0">
@@ -176,16 +176,16 @@
                                                 </div>
                                                 <div class="carousel-item">
                                                     <img src="{{ URL::asset('assets/images/dashboard/dash-3.png')}}" class="d-block img-fluid" alt="...">
-                                                </div>                                            
-                                            </div>                                        
-                                        </div>                                    
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div><!--end col-->
                                     <div class="col-12 col-lg-6">
                                         <div class="divider-custom mb-0">
                                             <div class="divider-text bg-light">All Dashboard</div>
                                         </divi>
-                                        <div class="p-4">                                        
-                                            <div class="row">                                            
+                                        <div class="p-4">
+                                            <div class="row">
                                                 <div class="col-6">
                                                     <a class="dropdown-item mb-2" href="../horizontal/analytics-index"> Analytics</a>
                                                     <a class="dropdown-item mb-2" href="../horizontal/crypto-index"> Crypto</a>
@@ -198,9 +198,9 @@
                                                     <a class="dropdown-item" href="../horizontal/hospital-index"> Hospital</a>
                                                 </div>
                                             </div>
-                                        </div>                                    
+                                        </div>
                                     </div><!--end col-->
-                                </div><!--end row-->                                                       
+                                </div><!--end row-->
                             </div>
                         </li>
                         <li class="hide-phone app-search">
@@ -211,7 +211,7 @@
                         </li>
                     </ul>
                 </nav>
-                <!-- end navbar--> 
+                <!-- end navbar-->
             </div><!--topbar-inner-->
         </div>
         <!-- Top Bar End -->

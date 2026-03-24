@@ -5,22 +5,16 @@
 <link href="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" /> 
+<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Top Scroller-->
 <link href="{{ URL::asset('plugins/ticker/jquery.jConveyorTicker.css')}}" rel="stylesheet" type="text/css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMDBFHEBCQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-KMDBFHEBCQ');
-</script>
 @stop
 
 @section('content')
- 
+
 
 <!-- Flash News -->
 <div class="row">
@@ -52,7 +46,7 @@
                             @endisset
                         </ul>
                     </div>
-                </div>    
+                </div>
             </div><!--end card-body-->
         </div><!--end card-->
     </div><!--end col-->
@@ -64,8 +58,8 @@
     <!-- Page-Title -->
     <div class="row">
             <div class="col-lg-4">
-                <div class="card">                                       
-                    <div class="card-body"> 
+                <div class="card">
+                    <div class="card-body">
                         <h4 class="header-title mt-0 mb-3">Latest Classwork</h4>
                         <div class="slimscroll crm-dash-activity">
                             <div class="activity">
@@ -100,18 +94,18 @@
                                         </p>
                                     </div>
                                 </div>
-                                <hr> 
+                                <hr>
                                 @endforeach
-                                                                          
+
                             </div><!--end activity-->
                         </div><!--end crm-dash-activity-->
-                    </div>  <!--end card-body-->                                     
-                </div><!--end card--> 
-            </div><!--end col-->  
+                    </div>  <!--end card-body-->
+                </div><!--end card-->
+            </div><!--end col-->
 
             <div class="col-lg-4">
-                <div class="card">                                       
-                    <div class="card-body"> 
+                <div class="card">
+                    <div class="card-body">
                         <h4 class="header-title mt-0 mb-3">Latest Exams</h4>
                         <div class="slimscroll crm-dash-activity">
                             <div class="activity">
@@ -147,23 +141,23 @@
                                           <br>  End at - {{date('d/M h:ia',$endTime)}}
                                           <br>    <a href="#" class="text-info">[more info]</a>
                                         </p>
-                                      
+
                                     </div>
                                 </div>
-                                <hr> 
+                                <hr>
                                 @endforeach
-                                                                          
+
                             </div><!--end activity-->
                         </div><!--end crm-dash-activity-->
-                    </div>  <!--end card-body-->                                     
-                </div><!--end card--> 
-            </div><!--end col-->  
+                    </div>  <!--end card-body-->
+                </div><!--end card-->
+            </div><!--end col-->
 
         </div>
     </div>
 </div>
 
-    
+
 @endsection
 
 

@@ -6,91 +6,65 @@
 
 
   //colunm-1
-  
+
   var options = {
-    chart: {
-        height: 340,
-        type: 'bar',
-        toolbar: {
-            show: false
-        }
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            endingShape: 'rounded',
-            columnWidth: '25%',
-        },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-    },
-    colors: ["#1ccab8", '#2a76f4'],
-    series: [{
-        name: 'New Visitors',
-        data: [68, 44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-        name: 'Unique Visitors',
-        data: [51, 76, 85, 101, 98, 87, 105, 91, 114, 94]
-    },],
-    xaxis: {
-        categories: ['Jan','Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        axisBorder: {
-          show: true,
-          color: '#bec7e0',
-        },  
-        axisTicks: {
-          show: true,
-          color: '#bec7e0',
-        },    
-    },
-    legend: {
-      offsetY: 6,
-    },
-    yaxis: {
-        title: {
-            text: 'Visitors',
-        },
-    },
-    fill: {
-        opacity: 1
-  
-    },
-    // legend: {
-    //     floating: true
-    // },
-    grid: {
-        row: {
-            colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-            opacity: 0.2,           
-        },
-        strokeDashArray: 4,
-    },
-    tooltip: {
-        y: {
-            formatter: function (val) {
-                return "" + val + "k"
-            }
-        }
-    }
-  }
-  
-  var chart = new ApexCharts(
-    document.querySelector("#ana_dash_1"),
-    options
-  );
-  
-  chart.render();
-  
-  
+                chart: {
+                    height: 340,
+                    type: 'bar',
+                    toolbar: { show: false }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        endingShape: 'rounded',
+                        columnWidth: '25%',
+                    },
+                },
+                dataLabels: { enabled: false },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                colors: ["#1ccab8", '#2a76f4'],
+                series: [
+                    { name: 'Received', data: window.feeReceived || [] },
+                    { name: 'Balance', data: window.feeBalance || [] }
+                ],
+                xaxis: {
+                    categories: window.feeMonths || [],
+                    axisBorder: { show: true, color: '#bec7e0' },
+                    axisTicks: { show: true, color: '#bec7e0' },
+                },
+                legend: { offsetY: 6 },
+                yaxis: {
+                    title: { text: 'Amount (₹)' },
+                },
+                fill: { opacity: 1 },
+                grid: {
+                    row: { colors: ['transparent', 'transparent'], opacity: 0.2 },
+                    strokeDashArray: 4,
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return "₹ " + val;
+                        }
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(
+                document.querySelector("#ana_dash_1"),
+                options
+            );
+            chart.render();
+
+
+
   // traffice chart
-  
-  
+
+
   var optionsCircle = {
       chart: {
         type: 'radialBar',
@@ -100,7 +74,7 @@
       },
       plotOptions: {
         radialBar: {
-          inverseOrder: true,      
+          inverseOrder: true,
           hollow: {
             margin: 5,
             size: '55%',
@@ -113,7 +87,7 @@
             opacity: 1,
             margin: 5, // margin is in pixels
           },
-    
+
           dataLabels: {
             name: {
                 fontSize: '18px',
@@ -122,7 +96,7 @@
                 fontSize: '16px',
                 color: '#50649c',
             },
-            
+
           }
         },
       },
@@ -154,42 +128,42 @@
         lineCap: 'round'
       },
     }
-    
+
     var chartCircle = new ApexCharts(document.querySelector('#circlechart'), optionsCircle);
     chartCircle.render();
-    
-    
-    
+
+
+
     var iteration = 11
-    
+
     function getRandom() {
       var i = iteration;
       return (Math.sin(i / trigoStrength) * (i / trigoStrength) + i / trigoStrength + 1) * (trigoStrength * 2)
     }
-    
+
     function getRangeRandom(yrange) {
       return Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
     }
-    
+
     window.setInterval(function () {
-    
+
       iteration++;
-    
+
       chartCircle.updateSeries([getRangeRandom({ min: 10, max: 100 }), getRangeRandom({ min: 10, max: 100 })])
-    
-    
+
+
     }, 3000)
-  
-  
-  
+
+
+
   //Device-widget
-  
-  
+
+
   var options = {
     chart: {
         height: 270,
         type: 'donut',
-    }, 
+    },
     plotOptions: {
       pie: {
         donut: {
@@ -206,7 +180,7 @@
       width: 2,
       colors: ['transparent']
     },
-   
+
     series: [10, 65, 25,],
     legend: {
         show: true,
@@ -220,7 +194,7 @@
     },
     labels: [ "Tablet", "Desktop", "Mobile"],
     colors: ["#ff9f43", "#506ee4", "#41cbd8"],
-   
+
     responsive: [{
         breakpoint: 600,
         options: {
@@ -228,7 +202,7 @@
               donut: {
                 customScale: 0.2
               }
-            },        
+            },
             chart: {
                 height: 240
             },
@@ -237,7 +211,7 @@
             },
         }
     }],
-  
+
     tooltip: {
       y: {
           formatter: function (val) {
@@ -245,14 +219,14 @@
           }
       }
     }
-    
+
   }
-  
+
   var chart = new ApexCharts(
     document.querySelector("#ana_device"),
     options
   );
-  
+
   chart.render();
 
 

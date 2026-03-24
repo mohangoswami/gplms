@@ -51,16 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
           end: '2019-08-29',
           className: 'bg-soft-primary',
         },
-      
+        
 
         // areas where "Meeting" must be dropped
-        {
-          groupId: 'mathsExam',
-          start: '2019-08-04T11:00:00',
-          end: '2019-08-04T14:00:00',
-          title: 'Maths Examination',
-          className: 'bg-soft-danger',
-        },
         {
           groupId: 'availableForMeeting',
           start: '2019-08-11T10:00:00',

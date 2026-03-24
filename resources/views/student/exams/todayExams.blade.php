@@ -20,21 +20,21 @@
 
         $currentTimestamp = new DateTime();
 
-        $live = false; 
+        $live = false;
         $viewPage = false;
 
         if($currentTimestamp >= $today_start_exam && $currentTimestamp <= $today_end_exam){
         $viewPage =true;
         }else{
         $viewPage = false;
-        } 
+        }
 
 
         if($currentTimestamp >= $start_exam && $currentTimestamp < $end_exam){
         $live =true;
         }else{
         $live = false;
-        } 
+        }
 @endphp
 
     @if($viewPage==true)
@@ -43,14 +43,15 @@
     @endphp
        <div class="row mt-5">
         <div class="col-lg-4">
+            <h1 class=" text-center">Today's Exams</h1>
             <div class="card bg-light b-round">
                 <div class="card-body b-round bg-success">
                     @if($live==true)
                     <div class="ribbon3 rib3-warning">
-                        <span class="text-white text-center rib3-warning">Live</span>                                        
+                        <span class="text-white text-center rib3-warning">Live</span>
                     </div><!--end ribbon-->
                     @endif
-                    <h3 class="header-title b-round bg-light text-center mt-5 m-2">{{$exam->title}}</h3>  
+                    <h3 class="header-title b-round bg-light text-center mt-5 m-2">{{$exam->title}}</h3>
                     <div class="d-flex justify-content-between">
                         <div>
                             <h2 class="font-weight-semibold mr-2">{{$exam->subject}}</h2>
@@ -61,26 +62,26 @@
                                 <li>
                                     <i class="fa fa-clock text-primary fa-sm"></i>
                                     <i class="fas fa-play text-primary fa-sm "></i>
-                                    <span>{{date('d/M h:ia', strtotime($exam->startExam))}}</span>                                                                                                      
+                                    <span>{{date('d/M h:ia', strtotime($exam->startExam))}}</span>
                                 </li>
                                 <li class="mt-2">
-                                    <i class="fa fa-clock text-danger fa-sm"></i> 
+                                    <i class="fa fa-clock text-danger fa-sm"></i>
                                     <i class="fas fa-stop text-danger fa-sm "></i>
-                                    <span>{{date('d/M h:ia', strtotime($exam->endExam))}}</span>                                              
+                                    <span>{{date('d/M h:ia', strtotime($exam->endExam))}}</span>
                                 </li>
-                                                                            
-                            </ul> 
+
+                            </ul>
                         </div>
                     </div>
                     @if($live==true)
                     <div class="card-footer b-round text-center">
                     <button onclick="window.location.href='/student/exams/attemptExam/{{$exam->id}}'" type="button" class="btn btn-primary btn-round waves-effect waves-light">
-                        <i class="mdi mdi-send mr-2"></i>Attempt</button>                                         
-                </div> 
-                @endif                           
+                        <i class="mdi mdi-send mr-2"></i>Attempt</button>
+                </div>
+                @endif
                 </div><!--end card-body-->
-            </div><!--end card--> 
-        </div><!--end col-->                        
+            </div><!--end card-->
+        </div><!--end col-->
         </div><!--end row-->
         @endif
         @endforeach
@@ -95,11 +96,11 @@
 
 @section('footerScript')
 <script type="text/javascript">
-  
+
      window.onload = function() {
  var timeout =  setInterval(function() {
     location.reload(true);
-  }, 60000); 
+  }, 60000);
 
 };
 </script>

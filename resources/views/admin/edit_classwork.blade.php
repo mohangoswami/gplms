@@ -9,22 +9,16 @@
 
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success  b-round  mt-3">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger  b-round  mt-3">
-    {{ session('failed') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
 <div class="row">
 <div class="col-lg-6">
     <div class="card">
         <div class="card-body">
-            <!-- Nav tabs --> 
-          
+            <!-- Nav tabs -->
+
 
                    @if($type=="PDF")
                     <div class="row">
@@ -33,7 +27,7 @@
                                 <div class="card-body">
                                     <h4 class="mt-0 header-title">{{$class. ' - ' . $subject . ', Topic - ' . $title}}</h4>
                                     <h5 class="mt-0 header-title">Edit PDF</h5>
-                                    <p class="text-muted mb-3">Basic example to demonstrate Bootstrap’s form styles.</p> 
+                                    <p class="text-muted mb-3">Basic example to demonstrate Bootstrap’s form styles.</p>
                                     <form method="POST" action="{{ route('admin.editPdfClasswork') }}" enctype="multipart/form-data">
                                         @csrf
                                     <input type="hidden" name="id" id="id" value="{{$id}}">
@@ -46,7 +40,7 @@
                                             @endisset
                                             @endforeach
                                         </select>
-                                    </div><!-- end col -->  
+                                    </div><!-- end col -->
                                       <div class="col-md-6">
 
                                             <label class="">Select Existing Topic</label>
@@ -62,15 +56,15 @@
                                                 @php
                                                 $titles[]=$classData->title;
                                                 @endphp
-                                                 @endif 
+                                                 @endif
                                             @endisset
 
                                             @endforeach
                                             </select>
 
-                                        </div><!-- end col -->   
-                                       
-                                      
+                                        </div><!-- end col -->
+
+
                                         <div class="form-group">
                                             <label for="pdfUpload">Edit PDF</label>
                                             <input name="fileName" class="form-control" type="text" placeholder="Enter file name" id="inputTitle" required>
@@ -82,12 +76,12 @@
                                         </div>
                                         <button type="submit" class="btn btn-gradient-primary">Submit</button>
                                         <button type="button" onclick="window.location='/admin/allClasswork'"  class="btn btn-gradient-danger">Cancel</button>
-                                    </form> 
+                                    </form>
                                     <div>
                                     <canvas id="pdfViewer"></canvas>
                                     </div>
                                     @yield ('footerScript')
-                                          
+
                                 </div><!--end card-body-->
                             </div><!--end card-->
                         </div><!--end col-->
@@ -112,7 +106,7 @@
                                                 @endisset
                                                 @endforeach
                                             </select>
-                                        </div><!-- end col -->  
+                                        </div><!-- end col -->
 
                                         <div class="col-md-6">
                                             <label class="">Select Existing Topic</label>
@@ -123,26 +117,26 @@
                                                 @endphp
                                             @foreach($classDatas as $classData)
                                             @isset($classData->title)
-                                           
+
                                             @if(!in_array($classData->title, $titlesImg))
                                             <option value="{{$classData->title}}">{{$classData->title}} </option>
                                                 @php
                                                 $titlesImg[]=$classData->title;
                                                 @endphp
-                                                 @endif 
+                                                 @endif
                                             @endisset
                                             @endforeach
                                             </select>
-    
-                                        </div><!-- end col -->   
-                                                                          
+
+                                        </div><!-- end col -->
+
                                             <div class="col-xl-12">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h4 class="mt-0 header-title">Edit Image</h4>
                                                         <p class="text-muted mb-3">Upload jpg/png/img image. (Max size - 10Mb)</p>
                                                         <input name="fileName" class="form-control" type="text" placeholder="Enter name" id="inputTitle" required>
-                                                        <input name="file" type="file" id="file" class="dropify form-control" />                                                   
+                                                        <input name="file" type="file" id="file" class="dropify form-control" />
                                                     </div><!--end card-body-->
                                                 </div><!--end card-->
                                             </div><!--end col-->
@@ -153,13 +147,13 @@
                                         </div>
                                         <button type="submit" class="btn btn-gradient-primary">Submit</button>
                                         <button type="button" onclick="window.location='/admin/allClasswork'" class="btn btn-gradient-danger">Cancel</button>
-                                    </form>                                           
+                                    </form>
                                 </div><!--end card-body-->
                             </div><!--end card-->
                         </div><!--end col-->
                     </div>
                     @endif
-           
+
 
                     @if($type=="DOCS")
                     <div class="row">
@@ -168,7 +162,7 @@
                                 <div class="card-body">
                                     <h4 class="mt-0 header-title">{{$class. ' - ' . $subject . ', Topic - ' . $title}}</h4>
                                     <h4 class="mt-0 header-title">Edit Doc/PPT</h4>
-                                    <p class="text-muted mb-3">Send the Word, Excel, Ppt, file. (Max size 10Mb)</p> 
+                                    <p class="text-muted mb-3">Send the Word, Excel, Ppt, file. (Max size 10Mb)</p>
                                     <form method="POST" action="{{ route('admin.editDocsClasswork') }}" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="id" id="id" value="{{$id}}">
@@ -181,7 +175,7 @@
                                                 @endisset
                                                 @endforeach
                                             </select>
-                                        </div><!-- end col -->  
+                                        </div><!-- end col -->
                                         <div class="col-md-6">
                                             <label class="">Select Existing Topic</label>
                                             <select id="selectTitle" name="selectTitle"  class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;">
@@ -196,13 +190,13 @@
                                                 @php
                                                 $titlesDoc[]=$classData->title;
                                                 @endphp
-                                                 @endif 
+                                                 @endif
                                             @endisset
 
                                             @endforeach
                                             </select>
-                                        </div><!-- end col -->   
-                                       
+                                        </div><!-- end col -->
+
                                         <div class="form-group">
                                             <label for="pdfUpload">Upload File</label>
                                             <input name="fileName" class="form-control" type="text" placeholder="Enter name" id="inputTitle" required>
@@ -214,14 +208,14 @@
                                         </div>
                                         <button type="submit" class="btn btn-gradient-primary">Submit</button>
                                         <button type="button" onclick="window.location='/admin/allClasswork'"  class="btn btn-gradient-danger">Cancel</button>
-                                    </form>                                           
+                                    </form>
                                 </div><!--end card-body-->
                             </div><!--end card-->
                         </div><!--end col-->
                     </div>
                     @endif
 
-                    
+
 
                     @if($type=="YOUTUBE")
                     <div class="row">
@@ -230,7 +224,7 @@
                                 <div class="card-body">
                                     <h4 class="mt-0 header-title">{{$class. ' - ' . $subject . ', Topic - ' . $title}}</h4>
                                     <h4 class="mt-0 header-title">Edit Youtube Link</h4>
-                                    <p class="text-muted mb-3">Copy Youtube link and paste here.</p> 
+                                    <p class="text-muted mb-3">Copy Youtube link and paste here.</p>
 
                                     <form method="POST" action="{{ route('admin.editYoutubeLink') }}" enctype="multipart/form-data">
                                         @csrf
@@ -244,11 +238,11 @@
                                                 @endisset
                                                 @endforeach
                                             </select>
-                                            
-                                        </div><!-- end col -->  
-                                       
+
+                                        </div><!-- end col -->
+
                                         <div class="col-md-6">
-                                                
+
                                             <label class="">Select Existing Topic </label>
                                             <select id="selectTitle" name="selectTitle"  class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;">
                                                 <option value="">None</option>
@@ -262,12 +256,12 @@
                                                     @php
                                                     $titlesYtb[]=$classData->title;
                                                     @endphp
-                                                     @endif 
+                                                     @endif
                                                 @endisset
                                                 @endforeach
                                             </select>
-                                        </div><!-- end col -->   
-                                                                       
+                                        </div><!-- end col -->
+
                                         <div class="form-group">
                                             <label for="lable_title">Youtube Link</label>
                                             <input name="youtubeLink"  value="{{$youtubeLink}}" class="form-control" type="text" placeholder="Paste Youtube Link Here" id="youtubeLink">
@@ -278,13 +272,13 @@
                                         </div>
                                         <button type="submit" class="btn btn-gradient-primary">Submit</button>
                                         <button type="button" onclick="window.location='/admin/allClasswork'" class="btn btn-gradient-danger">Cancel</button>
-                                    </form>                                           
+                                    </form>
                                 </div><!--end card-body-->
                             </div><!--end card-->
                         </div><!--end col-->
                         @endif
                     </div>
-            </div>    
+            </div>
         </div><!--end card-body-->
     </div><!--end card-->
 </div><!--end col-->
@@ -302,32 +296,32 @@
     var pdfjsLib = window['pdfjs-dist/build/pdf'];
     // The workerSrc property shall be specified.
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
-    
+
     $("#file").on("change", function(e){
         var file = e.target.files[0]
         if(file.type == "application/pdf"){
-            var fileReader = new FileReader();  
+            var fileReader = new FileReader();
             fileReader.onload = function() {
                 var pdfData = new Uint8Array(this.result);
                 // Using DocumentInitParameters object to load binary data.
                 var loadingTask = pdfjsLib.getDocument({data: pdfData});
                 loadingTask.promise.then(function(pdf) {
                   console.log('PDF loaded');
-                  
+
                   // Fetch the first page
                   var pageNumber = 1;
                   pdf.getPage(pageNumber).then(function(page) {
                     console.log('Page loaded');
-                    
+
                     var scale = 1.5;
                     var viewport = page.getViewport({scale: scale});
-    
+
                     // Prepare canvas using PDF page dimensions
                     var canvas = $("#pdfViewer")[0];
                     var context = canvas.getContext('2d');
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
-    
+
                     // Render PDF page into canvas context
                     var renderContext = {
                       canvasContext: context,

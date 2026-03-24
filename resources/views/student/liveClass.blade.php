@@ -132,6 +132,11 @@
         }
 @endphp
         @if($check==true)
+        @php
+        if($c==6){
+            $c=0;
+        }
+        @endphp
             <div class="col-lg-4">
             <div class="card profile-card bg-info "style="border-radius: 10%" >
             <div class="card-body p-0 bg-{{$color[$c]}} "style="border-radius: 20%">

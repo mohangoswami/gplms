@@ -14,8 +14,12 @@ class UpdateColumnToStudentExamsTable extends Migration
     public function up()
     {
         Schema::table('student_exams', function (Blueprint $table) {
-            $table->integer('marksObtain')->nullable()->change();
-            $table->integer('maxMarks')->nullable()->change();
+        $table->string('marksObtain', 10)
+              ->nullable()
+              ->change();
+        $table->integer('maxMarks')
+                ->nullable()
+                ->change();
         });
     }
 

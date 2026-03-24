@@ -16,14 +16,14 @@
                 </div>
                 <!--end logo-->
                 <!-- Navbar -->
-                <nav class="navbar-custom">    
-                    <ul class="list-unstyled topbar-nav float-right mb-0"> 
+                <nav class="navbar-custom">
+                    <ul class="list-unstyled topbar-nav float-right mb-0">
                         <li class="dropdown hide-phone">
                             <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="false" aria-expanded="false">
                                 <i class="ti-search noti-icon"></i>
                             </a>
-                            
+
                             <div class="dropdown-menu dropdown-menu-right dropdown-lg">
                                 <!-- Top Search Bar -->
                                 <div class="app-search-topbar">
@@ -37,7 +37,7 @@
                         <li class="hidden-sm">
                             <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="javascript: void(0);" role="button"
                                 aria-haspopup="false" aria-expanded="false">
-                                <img src="/assets/images/flags/us_flag.jpg" class="ml-2" height="16" alt=""/> <i class="mdi mdi-chevron-down"></i> 
+                                <img src="/assets/images/flags/us_flag.jpg" class="ml-2" height="16" alt=""/> <i class="mdi mdi-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="javascript: void(0);"><span> German </span><img src="/assets/images/flags/germany_flag.jpg" alt="" class="ml-2 float-right" height="14"/></a>
@@ -55,10 +55,10 @@
                                 <span class="badge badge-danger badge-pill noti-icon-badge">2</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-lg pt-0">
-                            
+
                                 <h6 class="dropdown-item-text font-15 m-0 py-3 bg-primary text-white d-flex justify-content-between align-items-center">
                                     Notifications <span class="badge badge-light badge-pill">2</span>
-                                </h6> 
+                                </h6>
                                 <div class="slimscroll notification-list">
                                     <!-- item-->
                                     <a href="#" class="dropdown-item py-3">
@@ -136,7 +136,7 @@
                         <li class="dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="false" aria-expanded="false">
-                                <img src="/assets/images/users/user-1.png" alt="profile-user" class="rounded-circle" /> 
+                                <img src="/assets/images/users/user-1.png" alt="profile-user" class="rounded-circle" />
                                 <span class="ml-1 nav-user-name hidden-sm">Amelia <i class="mdi mdi-chevron-down"></i> </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -151,7 +151,7 @@
                         <li>
                             <a href="#" class="nav-link" data-toggle="modal" data-animation="fade" data-target=".modal-rightbar">
                                 <i data-feather="align-right" class="align-self-center"></i>
-                            </a>                  
+                            </a>
                         </li>
                         <li class="menu-item">
                             <!-- Mobile menu toggle-->
@@ -162,29 +162,29 @@
                                     <span></span>
                                 </div>
                             </a><!-- End mobile menu toggle-->
-                        </li> <!--end menu item-->   
+                        </li> <!--end menu item-->
                     </ul><!--end topbar-nav-->
-        
+
                     <div id="navigation">
                         <ul class="list-unstyled navigation-menu">
                             <li class="main-nav-item">
-                                <a href="#" class="navbar-link">                                    
+                                <a href="#" class="navbar-link">
                                     <span>Ecommerce</span>
-                                </a> 
-                                <ul class="submenu-tab">                                    
+                                </a>
+                                <ul class="submenu-tab">
                                     <li><a href="/demos/mate-horizontal-rtl-ecommerce-index">Dashboard</a></li>
                                     <li><a href="/ecommerce/ecommerce-products">Products</a></li>
                                     <li><a href="/ecommerce/ecommerce-product-list">Product List</a></li>
                                     <li><a href="/ecommerce/ecommerce-product-detail">Product Detail</a></li>
                                     <li><a href="/ecommerce/ecommerce-cart">Cart</a></li>
                                     <li><a href="/ecommerce/ecommerce-checkout">Checkout</a></li>
-    
-                                </ul><!--end submenu-->                           
+
+                                </ul><!--end submenu-->
                             </li><!--end has-submenu-->
                             <li class="main-nav-item">
                                 <a href="#" class="navbar-link">
                                     <span>Apps</span>
-                                </a> 
+                                </a>
                                 <ul class="submenu-tab">
                                     <li class="has-submenu">
                                         <a href="#">Email</a>
@@ -198,18 +198,18 @@
                                             <li><a href="/others/email-templates-alert">Alert Email</a></li>
                                             <li><a href="/others/email-templates-billing">Billing Email</a></li>
                                         </ul>
-                                    </li> <!--end has-submenu-->  
+                                    </li> <!--end has-submenu-->
                                     <li><a href="/apps/chat">Chat</a></li>
                                     <li><a href="/apps/contact-list">Contact List</a></li>
                                     <li><a href="/apps/calendar">Calendar</a></li>
-                                    <li><a href="/apps/invoice">Invoice</a></li>                                               
-                                </ul><!--end submenu-->                          
+                                    <li><a href="/apps/invoice">Invoice</a></li>
+                                </ul><!--end submenu-->
                             </li><!--end has-submenu-->
                             <li class="main-nav-item">
                                 <a href="#" class="navbar-link">
                                     <span>UI Kit</span>
-                                </a>  
-                                <ul class="submenu-tab">                                    
+                                </a>
+                                <ul class="submenu-tab">
                                     <li class="has-submenu">
                                         <a href="#">UI Elements</a>
                                         <ul class="submenu">
@@ -253,7 +253,7 @@
                                         <a href="#">Charts</a>
                                         <ul class="submenu">
                                             <li><a href="/others/charts-apex">Apex</a></li>
-                                            <li><a href="/others/charts-morris">Morris</a></li>                                            
+                                            <li><a href="/others/charts-morris">Morris</a></li>
                                             <li><a href="/others/charts-chartjs">Chartjs</a></li>
                                             <li><a href="/others/charts-flot">Flot</a></li>
                                             <li><a href="/others/charts-chartist">Chartist</a></li>
@@ -262,7 +262,7 @@
                                             <li><a href="/others/charts-knob">Jquery Knob</a></li>
                                             <li><a href="/others/charts-justgage">JustGage</a></li>
                                         </ul>
-                                    </li><!--end has-submenu-->                                    
+                                    </li><!--end has-submenu-->
                                     <li class="has-submenu">
                                         <a href="#">Tables </a>
                                         <ul class="submenu">
@@ -286,7 +286,7 @@
                                             <li><a href="/others/icons-feather">Feather</a></li>
                                             <li><a href="/others/icons-emoji">Emoji</a></li>
                                         </ul>
-                                    </li> <!--end has-submenu-->                                   
+                                    </li> <!--end has-submenu-->
                                     <li class="has-submenu">
                                         <a href="#">Maps</a>
                                         <ul class="submenu">
@@ -294,13 +294,13 @@
                                             <li><a href="/others/maps-leaflet">Leaflet Maps</a></li>
                                             <li><a href="/others/maps-vector">Vector Maps</a></li>
                                         </ul>
-                                    </li> <!--end has-submenu-->                     
-                                </ul><!--end submenu-->         
+                                    </li> <!--end has-submenu-->
+                                </ul><!--end submenu-->
                             </li><!--end has-submenu-->
                             <li class="main-nav-item">
                                 <a href="#" class="navbar-link">
                                     <span>Pages</span>
-                                </a> 
+                                </a>
                                 <ul class="submenu-tab">
                                     <li><a href="/pages/pages-profile">Profile</a></li>
                                     <li><a href="/pages/pages-timeline">Timeline</a></li>
@@ -311,12 +311,12 @@
                                     <li><a href="/pages/pages-blogs">Blogs</a></li>
                                     <li><a href="/pages/pages-faq">FAQs</a></li>
                                     <li><a href="/pages/pages-gallery">Gallery</a></li>
-                                </ul>                      
+                                </ul>
                             </li><!--end has-submenu-->
                             <li class="main-nav-item">
                                 <a href="#" class="navbar-link">
                                     <span>Authentication</span>
-                                </a>  
+                                </a>
                                 <ul class="submenu-tab">
                                     <li class="has-submenu">
                                         <a href="#">Log In</a>
@@ -346,7 +346,7 @@
                                             <li><a href="/authentication/auth-lock-screen-alt">Lock Screen-alt</a></li>
                                         </ul>
                                     </li><!--end has-submenu-->
-    
+
                                     <li class="has-submenu">
                                         <a href="#">Error 404</a>
                                         <ul class="submenu">
@@ -354,7 +354,7 @@
                                             <li><a href="/authentication/auth-404-alt">Error 404-alt</a></li>
                                         </ul>
                                     </li><!--end has-submenu-->
-                                    
+
                                     <li class="has-submenu">
                                         <a href="#">Error 500</a>
                                         <ul class="submenu">
@@ -362,12 +362,12 @@
                                             <li><a href="/authentication/auth-500-alt">Error 500-alt</a></li>
                                         </ul>
                                     </li><!--end has-submenu-->
-                                </ul>                   
+                                </ul>
                             </li><!--end has-submenu-->
                         </ul><!--end topbar-nav-->
                     </div>
                 </nav>
-                <!-- end navbar--> 
+                <!-- end navbar-->
             </div><!--topbar-inner-->
         </div>
         <!-- Top Bar End -->

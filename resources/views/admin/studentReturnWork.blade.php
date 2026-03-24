@@ -3,28 +3,22 @@
 @section('title', 'Metrica - Admin & Dashboard Template')
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round  mt-3">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger b-round  mt-3">
-    {{ session('failed') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
 <div class="container-fluid">
 
         <!-- Page-Title -->
         <div class="row">
                 <div class="col-lg-4">
-                    <div class="card">                                       
-                        <div class="card-body"> 
+                    <div class="card">
+                        <div class="card-body">
                             <h4 class="header-title mt-0 mb-3">Return work sent by Students</h4>
                             <div class="slimscroll crm-dash-activity">
                                 <div class="activity">
                                  @php
-                                   $currentUser = Null;   
+                                   $currentUser = Null;
                                  @endphp
                                   @foreach ($stuHomeworkUploads as $stuHomeworkUpload)
                                   <div class="activity-info">
@@ -32,7 +26,7 @@
 
                                         @if($stuHomeworkUpload->email != $currentUser)
                                         <br><h4 class="mb-2"><li>{{$stuHomeworkUpload->name}}</li></h3>
-                                        @endif    
+                                        @endif
                                         <a href="{{$stuHomeworkUpload->fileUrl}}" target="_blank"  class="waves-effect waves-light">
                                         <div>
                                             <div>
@@ -52,10 +46,10 @@
                                     @endforeach
                                 </div><!--end activity-->
                             </div><!--end crm-dash-activity-->
-                        </div>  <!--end card-body-->                                     
-                    </div><!--end card--> 
-                </div><!--end col-->   
-                
+                        </div>  <!--end card-body-->
+                    </div><!--end card-->
+                </div><!--end col-->
+
              </div>
             </div>
         </div>

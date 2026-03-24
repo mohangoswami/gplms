@@ -57,24 +57,21 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'token' => env('AWS_SESSION_TOKEN'),
-            'region' => env('AWS_DEFAULT_REGION'),
+            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+            'visibility' => 'public',
         ],
+            's3_public' => [
+                'driver' => 's3',
+                'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+                'bucket' => env('AWS_BUCKET'),
+                'url' => env('AWS_URL'),
+                'endpoint' => env('AWS_ENDPOINT'),
+                'visibility' => 'public',
+            ],
 
-                's3_public' => [
-                        'driver' => 's3',
-                        'key' => env('AWS_ACCESS_KEY_ID'),
-                        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-                        'token' => env('AWS_SESSION_TOKEN'),
-                        'region' => env('AWS_DEFAULT_REGION'),
-                        'bucket' => env('AWS_PUBLIC_BUCKET'),
-                        'url' => env('AWS_URL'),
-                    ],
 
     ],
 
@@ -94,3 +91,4 @@ return [
     ],
 
 ];
+

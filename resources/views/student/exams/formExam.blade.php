@@ -5,24 +5,12 @@
 @stop
 
 @section('content')
-@section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round  mt-3 " >
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger b-round  mt-3 ">
-    {{ session('failed') }}
-</div>
-@endif
-@if (session('delete'))
-<div class="alert alert-warning b-round  mt-3">
-    {{ session('delete') }}
-</div>
-@endif    
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
 @foreach ($exams as $exam)
-    
+
         <div class="row mt-4">
             <div class="col-md-4">
                 <div class="card">
@@ -37,8 +25,9 @@
                                 @endif
                             </div>
                         </div>
-                       
-                    </div><!--end card-body--> 
+                        {!! $exam->examUrl !!}
+
+                    </div><!--end card-body-->
                 </div><!--end card-->
             </div>
         </div>

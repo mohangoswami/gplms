@@ -15,7 +15,11 @@ class AdminLoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.admin-login');
+        if (view()->exists('auth.admin-login')) {
+            return view('auth.admin-login');
+        }
+
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -29,7 +33,7 @@ class AdminLoginController extends Controller
         // Attempt to log the user in
         if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember))
         {
-            return redirect()->intended(route('admin.allStudentsRecord'));
+            return redirect()->intended(route('fee.allStudentsRecord'));
         }
 
         // if unsuccessful

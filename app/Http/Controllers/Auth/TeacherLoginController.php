@@ -35,4 +35,6 @@ class TeacherLoginController extends Controller
         // if unsuccessful
         return redirect()->back()->withInput($request->only('email','remember'));
     }
+
+
 }

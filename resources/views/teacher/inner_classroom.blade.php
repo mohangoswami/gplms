@@ -5,20 +5,15 @@
 <link href="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" /> 
+<link href="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @stop
- 
+
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round alert-dismissible">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('failed'))
-<div class="alert alert-danger b-round alert-dismissible">
-    {{ session('failed') }} 
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
+
                                     @php
                                     $img=0;
                                     $pdf=0;
@@ -26,15 +21,15 @@
                                     $ytb=0;
                                 @endphp
                                 @foreach ($DBtitles as $classwork)
-                              
+
                                     @php
-                                    
+
                                       if(isset($classwork->discription)){
                                     $discription= $classwork->discription;
                                         }else {
                                             $discription="";
                                         }
-                                        
+
                                         if($classwork->type=='IMG'){
                                             $img=$img+1;
                                         }
@@ -64,14 +59,14 @@
                                                 <h4 class="mt-0 mb-2 font-24">Topic- {{$title}}</h4>
                                                 <ul class="list-inline mb-0 text-muted">
                                                     <li class="list-inline-item mr-2"><span><i class="fas fa-user mr-2 text-info font-14"></i></span>{{$teacherName}}</li>
-                                                </ul> 
-                                            <p><i class="far fa-envelope mr-2 text-info font-14"></i> {{$discription}}</p>                                                   
+                                                </ul>
+                                            <p><i class="far fa-envelope mr-2 text-info font-14"></i> {{$discription}}</p>
                                             </div><!--end media-body-->
                                         </div><!--end media-->
                                     </div><!--end col-->
-                                   
+
                                 </div><!--end row-->
-                               
+
                                     <!-- Nav tabs -->
                                 <div class="mt-4">
                                     <ul class="nav nav-pills nav-justified " role="tablist">
@@ -95,13 +90,13 @@
                                 </div>
                                 <div class="progress bg-warning m-2" style="height:5px;">
                                     <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div> 
+                                </div>
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div class="tab-pane active p-0" id="pdf" role="tabpanel">
                                            <div class="card-body pt-0">
                                             <ul class="list-group wallet-bal-crypto">
-                                               
+
                                                 @foreach ($DBtitles as $pdfLoop)
                                                     @if($pdfLoop->type=='PDF')
                                                 <a href="{{$pdfLoop->fileUrl}}" target="_blank" >
@@ -110,16 +105,16 @@
                                                 <li class="list-group-item align-items-center d-flex justify-content-between">
                                                     <div class="media">
                                                         <img src="{{ URL::asset('assets/images/files logo/download.jpeg')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                        <div class="media-body align-self-center"> 
+                                                        <div class="media-body align-self-center">
                                                             <div class="coin-bal">
                                                                 @php
                                                                     $filename=basename($pdfLoop->fileUrl);
                                                                     $fileSizes=intval(($pdfLoop->fileSize)/1000);
-                                                                  
-                                                                @endphp                                                        
+
+                                                                @endphp
                                                                 <h3 class="m-0">{{$filename}}</h3>
                                                                 <p class="text-muted mb-0">Size - {{$fileSizes}}KB</p>
-                                                            </div>                                                                                              
+                                                            </div>
                                                         </div><!--end media body-->
                                                     </div>
                                                 </a>
@@ -134,13 +129,13 @@
                                             </div>
                                                 @endif
                                                 @endforeach
-                                            </ul> 
-                                        </div><!--end card-body--> 
+                                            </ul>
+                                        </div><!--end card-body-->
                                         </div>
                                         <div class="tab-pane p-3" id="img" role="tabpanel">
                                             <div class="card-body pt-0">
                                                 <ul class="list-group wallet-bal-crypto">
-                                                   
+
                                                     @foreach ($DBtitles as $pdfLoop)
                                                         @if($pdfLoop->type=='IMG')
                                                         <a href="{{$pdfLoop->fileUrl}}" target="_blank" >
@@ -149,16 +144,16 @@
                                                         <li class="list-group-item align-items-center d-flex justify-content-between">
                                                         <div class="media">
                                                             <img src="{{ URL::asset('assets/images/files logo/jpeg.jpeg')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                            <div class="media-body align-self-center"> 
+                                                            <div class="media-body align-self-center">
                                                                 <div class="coin-bal">
                                                                     @php
                                                                         $filename=basename($pdfLoop->fileUrl);
                                                                         $fileSizes=intval(($pdfLoop->fileSize)/1000);
-                                                                      
-                                                                    @endphp                                                        
+
+                                                                    @endphp
                                                                     <h3 class="m-0">{{$filename}}</h3>
                                                                     <p class="text-muted mb-0">Size - {{$fileSizes}}KB</p>
-                                                                </div>                                                                                              
+                                                                </div>
                                                             </div><!--end media body-->
                                                         </div>
                                                     </a>
@@ -172,14 +167,14 @@
                                                 </div>
                                                     @endif
                                                     @endforeach
-    
-                                                </ul> 
-                                            </div><!--end card-body--> 
+
+                                                </ul>
+                                            </div><!--end card-body-->
                                         </div>
                                         <div class="tab-pane p-3" id="docs" role="tabpanel">
                                             <div class="card-body pt-0">
                                                 <ul class="list-group wallet-bal-crypto">
-                                                   
+
                                                     @foreach ($DBtitles as $pdfLoop)
                                                         @if($pdfLoop->type=='DOCS')
                                                         <a href="{{$pdfLoop->fileUrl}}" target="_blank" >
@@ -188,16 +183,16 @@
                                                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                                         <div class="media">
                                                             <img src="{{ URL::asset('assets/images/files logo/docs.png')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                            <div class="media-body align-self-center"> 
+                                                            <div class="media-body align-self-center">
                                                                 <div class="coin-bal">
                                                                     @php
                                                                         $filename=basename($pdfLoop->fileUrl);
                                                                         $fileSizes=intval(($pdfLoop->fileSize)/1000);
-                                                                      
-                                                                    @endphp                                                        
+
+                                                                    @endphp
                                                                     <h3 class="m-0">{{$filename}}</h3>
                                                                     <p class="text-muted mb-0">Size - {{$fileSizes}}KB</p>
-                                                                </div>                                                                                              
+                                                                </div>
                                                             </div><!--end media body-->
                                                         </div>
                                                     </a>
@@ -211,11 +206,11 @@
                                                 </div>
                                                     @endif
                                                     @endforeach
-    
-                                                </ul> 
-                                            </div><!--end card-body--> 
+
+                                                </ul>
+                                            </div><!--end card-body-->
                                         </div>
-                                        
+
                                         <div class="tab-pane p-3" id="youtube" role="tabpanel">
                                             <div class="card-body pt-0">
                                                 <ul class="list-group wallet-bal-crypto">
@@ -230,11 +225,11 @@
                                                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                                         <div class="media">
                                                             <img src="{{ URL::asset('assets/images/files logo/youtubeNew.png')}}" class="mr-3 thumb-sm align-self-center rounded-circle" alt="...">
-                                                            <div class="media-body align-self-center"> 
+                                                            <div class="media-body align-self-center">
                                                                 <div class="coin-bal">
-                                                                                                                 
+
                                                                 <h3 class="m-0">{{$i}}. Click to view video</h3>
-                                                                </div>                                                                                              
+                                                                </div>
                                                             </div><!--end media body-->
                                                         </div>
                                                     </a>
@@ -251,23 +246,23 @@
                                                         $i=$i+1;
                                                     @endphp
                                                     @endforeach
-    
-                                                </ul> 
-                                            </div><!--end card-body--> 
+
+                                                </ul>
+                                            </div><!--end card-body-->
                                         </div>
-                                    </div>    
-                               
+                                    </div>
+
                     </div><!--end row-->
 
                             </div><!--end card-body-->
                         </div><!--end card-->
-                        
-                        
+
+
 
                     </div>
                 </div>
 </div>
-    
+
 @endsection
 
 

@@ -15,40 +15,34 @@
 
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success b-round  mt-3">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('error'))
-<div class="alert alert-danger b-round  mt-3">
-    {{ session('error') }}
-</div>
-@endif
+
+<!-- Flash Messages -->
+@include('layouts.partials.flash-messages')
+
 <div class="row mt-4">
 <div class="col-lg-6">
     <div class="card">
         <div class="card-body bg-Success">
-         
+
 
             <!-- Tab panes -->
-                   
+
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="mt-0 header-title">Edit Exam</h3>
                                     <h4 class="mb-3">Class- {{$class . ', Subject- ' . $subject}}</h4>
-                                    <p class="text-muted mb-3">Discription- {{$discription}}</p> 
+                                    <p class="text-muted mb-3">Discription- {{$discription}}</p>
                                     <form method="POST" action="{{ route('teacher.postEditExam') }}" enctype="multipart/form-data">
                                         @csrf
                                     <input type="hidden" name="id" value="{{$id}}">
-                                        <div class="col-md-6">                                      
-                                        </div><!-- end col -->   
-                                        <label class="mb-3">Exam - Start and End time</label>                                          
-                                        <div class="input-group">  
+                                        <div class="col-md-6">
+                                        </div><!-- end col -->
+                                        <label class="mb-3">Exam - Start and End time</label>
+                                        <div class="input-group">
                                             <input type="text" class="form-control" name="datetimes">
-                                         
+
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="dripicons-calendar"></i></span>
                                             </div>
@@ -61,18 +55,18 @@
                                         </div>
                                         <button type="submit" class="btn btn-gradient-primary">Submit</button>
                                         <button type="button" onclick="window.location='/teacher/allExams'" class="btn btn-gradient-danger">Cancel</button>
-                                    </form> 
+                                    </form>
                                     <div>
                                     </div>
-                                          
+
                                 </div><!--end card-body-->
                             </div><!--end card-->
                         </div><!--end col-->
                     </div>
 
                 </div>
-  
-            </div>    
+
+            </div>
         </div><!--end card-body-->
     </div><!--end card-->
 
