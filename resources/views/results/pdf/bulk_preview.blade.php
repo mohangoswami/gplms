@@ -28,7 +28,7 @@ th,td{border:1px solid #000;padding:4px;text-align:center;font-size:14px;}
 .grade-table{width:50%;margin:6px auto 0 auto;font-size:10.5px;}
 .grade-table td{padding:2px 4px;}
 /* page break between students */
-.student-block{page-break-after:always;padding-bottom:30px;border-bottom:2px dashed #ccc;margin-bottom:30px;}
+.student-block{page-break-after:always;padding-bottom:10px;border-bottom:2px dashed #ccc;margin-bottom:30px;}
 .student-block:last-child{page-break-after:auto;border-bottom:none;}
 </style>
 </head>
@@ -254,7 +254,7 @@ $promotionMap = [
 <tr><td>33 – 40</td><td>D</td></tr>
 <tr><td>32 &amp; BELOW</td><td>E (NEEDS IMPROVEMENT)</td></tr>
 </table>
-<div style="font-size:10.5px;margin-top:6px;"><b>ABBREVIATIONS:</b>&nbsp;
+<div style="font-size:10.5px;margin-top:1px;"><b>ABBREVIATIONS:</b>&nbsp;
 PE = PERIODIC EVALUATION &nbsp;|&nbsp; NB = NOTEBOOK &nbsp;|&nbsp; SE = SUBJECT ENRICHMENT</div>
 </div>
 

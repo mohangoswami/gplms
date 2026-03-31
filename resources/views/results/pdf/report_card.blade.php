@@ -37,7 +37,7 @@ th,td{border:1px solid #000;padding:4px;text-align:center;font-size:14px;}
 {{-- ================= STUDENT INFO ================= --}}
 <table class="titles">
 <tr>
-    <td><b>ADM. NO. :</b> {{ $student->admission_number }}</td>
+    <td><b>ADM. NO :</b> {{ $student->admission_number }}</td>
     <td><b>STUDENT NAME :</b> {{ strtoupper($student->name) }}</td>
     <td><b>DOB :</b> {{ \Carbon\Carbon::parse($student->dob)->format('d-M-Y') }}</td>
 </tr>
@@ -192,7 +192,7 @@ th,td{border:1px solid #000;padding:4px;text-align:center;font-size:14px;}
 <tr>
     <td colspan="2">
         <div class="remarks">
-            <b>CLASS TEACHER'S REMARKS :</b></div><div></div> {{ strtoupper($health->remark ?? '') }}
+            <b>CLASS TEACHER'S REMARKS :</b> {{ strtoupper($health->remark ?? '') }}
         </div>
     </td>
 </tr>

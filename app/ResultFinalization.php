@@ -14,6 +14,7 @@ class ResultFinalization extends Model
         'finalized_by_id',
         'finalized_by_role',
         'finalized_at',
+        'pdf_path',
     ];
 
     public static function isFinal($studentId, $performaId)

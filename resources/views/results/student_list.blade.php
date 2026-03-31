@@ -175,6 +175,30 @@ body {
                                 📄 View Result
                             </a>
 
+                            @auth('admin')
+                            {{-- ☁️ Upload PDF to S3 --}}
+                            <button
+                                id="upload-btn-{{ $student->id }}"
+                                onclick="uploadResultPDF({{ $student->id }})"
+                                class="btn btn-sm btn-success ms-1">
+                                ☁️ Upload PDF
+                            </button>
+
+                            {{-- Show existing PDF link if already uploaded --}}
+                            @if(!empty($pdfPathMap[$student->id]))
+                                <a href="{{ route('admin.results.view.pdf', $student->id) }}"
+                                   target="_blank"
+                                   id="pdf-link-{{ $student->id }}"
+                                   class="btn btn-sm btn-outline-info ms-1">
+                                    🔗 View PDF
+                                </a>
+                            @else
+                                <span id="pdf-link-{{ $student->id }}" style="display:none;">
+                                    <a href="#" target="_blank" class="btn btn-sm btn-outline-info ms-1">🔗 View PDF</a>
+                                </span>
+                            @endif
+                            @endauth
+
                         {{-- ✏️ If NOT FINALIZED → SHOW ENTRY --}}
                         @else
 
@@ -215,4 +239,56 @@ body {
 @endif
 
 </div>
+@auth('admin')
+<script>
+function uploadResultPDF(studentId) {
+    const btn = document.getElementById('upload-btn-' + studentId);
+    const linkSpan = document.getElementById('pdf-link-' + studentId);
+
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Uploading to S3...';
+
+    fetch('/admin/results/' + studentId + '/upload-pdf', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json'
+        }
+    })
+    .then(r => {
+        const ct = r.headers.get('Content-Type') || '';
+        if (ct.includes('application/json')) {
+            return r.json();
+        }
+        return r.text().then(t => {
+            throw new Error('HTTP ' + r.status + ' — ' + t.substring(0, 300));
+        });
+    })
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '✅ Uploaded';
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-secondary');
+
+            if (linkSpan) {
+                linkSpan.style.display = '';
+                const anchor = linkSpan.tagName === 'A' ? linkSpan : linkSpan.querySelector('a');
+                if (anchor) anchor.href = '/admin/results/' + studentId + '/view-pdf';
+            }
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = '☁️ Upload PDF';
+            alert('Error: ' + (data.message || 'Upload failed'));
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = '☁️ Upload PDF';
+        alert('Error: ' + (err.message || 'Network error. Please try again.'));
+    });
+}
+</script>
+@endauth
+
 @endsection

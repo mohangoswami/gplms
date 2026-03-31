@@ -296,6 +296,7 @@ public function index(Request $request)
     $students     = collect();
     $statusMap    = collect();   // pending / partial / complete
     $finalizedMap = collect();   // annual finalized or not
+    $pdfPathMap   = collect();   // pdf_path per student
 
     if ($class) {
 
@@ -357,11 +358,14 @@ public function index(Request $request)
                 }
 
                 // 🔒 ANNUAL FINALIZATION STATUS (PERFORMA BASED)
-                $finalizedMap[$s->id] = ResultFinalization::where([
+                $finalization = ResultFinalization::where([
                     'student_id'  => $s->id,
                     'performa_id' => $performa->id,
                     'status'      => 'FINAL',
-                ])->exists();
+                ])->first(['id', 'pdf_path']);
+
+                $finalizedMap[$s->id] = (bool) $finalization;
+                $pdfPathMap[$s->id]   = $finalization?->pdf_path;
             }
         }
     }
@@ -378,7 +382,8 @@ public function index(Request $request)
             'class',
             'students',
             'statusMap',
-            'finalizedMap'
+            'finalizedMap',
+            'pdfPathMap'
         )
     );
 }

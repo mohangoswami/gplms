@@ -12,6 +12,8 @@ use App\ResultStudentHealthRecord;
 use App\ResultTerm;
 use App\Services\ResultCalculationService;
 use App\User;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ResultPdfController extends Controller
 {
@@ -114,6 +116,124 @@ class ResultPdfController extends Controller
             'coScholasticTerm2',
             'terms'
         ));
+    }
+
+    // ================================================
+    // UPLOAD SINGLE STUDENT PDF TO S3
+    // ================================================
+    public function uploadResultPDF(User $student)
+    {
+        abort_unless(auth('admin')->check(), 403);
+
+        set_time_limit(120);
+
+        try {
+            $performa = ResultPerforma::where('class', $student->grade)
+                ->where('is_default', 1)
+                ->firstOrFail();
+
+            if (!ResultFinalization::isFinal($student->id, $performa->id)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Result is not finalized yet.',
+                ], 422);
+            }
+
+            $terms = ResultTerm::where('performa_id', $performa->id)
+                ->orderBy('order_no')
+                ->get();
+
+            $calculator = new ResultCalculationService($student->id, $terms);
+            $result     = $calculator->calculate();
+
+            $coScholasticAreas = ResultCoScholasticArea::where('performa_id', $performa->id)
+                ->where('class', $student->grade)
+                ->where('is_active', 1)
+                ->orderBy('display_order')
+                ->get();
+
+            $coScholasticTerm1 = collect();
+            $coScholasticTerm2 = collect();
+
+            if ($terms->count() > 0) {
+                $coScholasticTerm1 = ResultStudentCoScholastic::where([
+                    'student_id' => $student->id,
+                    'term_id'    => $terms[0]->id,
+                ])->get()->keyBy('co_scholastic_area_id');
+            }
+
+            if ($terms->count() > 1) {
+                $coScholasticTerm2 = ResultStudentCoScholastic::where([
+                    'student_id' => $student->id,
+                    'term_id'    => $terms[1]->id,
+                ])->get()->keyBy('co_scholastic_area_id');
+            }
+
+            $attendance = ResultStudentAttendance::where('student_id', $student->id)
+                ->orderByDesc('term_id')
+                ->first();
+
+            $health = ResultStudentHealthRecord::where('student_id', $student->id)->first();
+
+            $pdf = Pdf::loadView('results.pdf.report_card', compact(
+                'student',
+                'result',
+                'attendance',
+                'health',
+                'coScholasticAreas',
+                'coScholasticTerm1',
+                'coScholasticTerm2',
+                'terms'
+            ));
+            $pdf->setPaper('A4', 'portrait');
+
+            $s3Path = "result-cards/{$student->id}/result_card.pdf";
+
+            Storage::disk('s3')->put($s3Path, $pdf->output());
+
+            $pdfUrl = Storage::disk('s3')->temporaryUrl($s3Path, now()->addHours(2));
+
+            ResultFinalization::where([
+                'student_id'  => $student->id,
+                'performa_id' => $performa->id,
+            ])->update(['pdf_path' => $s3Path]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'PDF uploaded successfully.',
+                'pdf_url' => $pdfUrl,
+            ]);
+
+        } catch (\Throwable $e) {
+            \Log::error('PDF Upload Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    // ================================================
+    // VIEW UPLOADED PDF — redirect to signed S3 URL
+    // ================================================
+    public function viewResultPDF(User $student)
+    {
+        abort_unless(auth('admin')->check(), 403);
+
+        $performa = ResultPerforma::where('class', $student->grade)
+            ->where('is_default', 1)
+            ->firstOrFail();
+
+        $finalization = ResultFinalization::where([
+            'student_id'  => $student->id,
+            'performa_id' => $performa->id,
+        ])->firstOrFail();
+
+        abort_if(empty($finalization->pdf_path), 404, 'PDF not uploaded yet.');
+
+        $url = Storage::disk('s3')->temporaryUrl($finalization->pdf_path, now()->addHours(2));
+
+        return redirect($url);
     }
 
     // ================================================

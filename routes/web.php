@@ -459,6 +459,18 @@ Route::prefix('admin')->group(function(){
         [ResultPdfController::class, 'annualPdf']
     )->name('admin.results.annual.pdf');
 
+    // ☁️ Upload Result Card PDF to S3
+    Route::post(
+        '/results/{student}/upload-pdf',
+        [ResultPdfController::class, 'uploadResultPDF']
+    )->name('admin.results.upload.pdf');
+
+    // 🔗 View uploaded Result Card PDF (generates signed S3 URL on demand)
+    Route::get(
+        '/results/{student}/view-pdf',
+        [ResultPdfController::class, 'viewResultPDF']
+    )->name('admin.results.view.pdf');
+
     // 📦 Bulk class PDF — all finalized students in one download
     Route::get(
         '/results/class/{grade}/bulk-pdf',
